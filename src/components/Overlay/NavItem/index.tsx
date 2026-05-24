@@ -1,24 +1,26 @@
 import { Button } from "@components/Button";
 
-import "./index.css";
-
 export type NavItemProps = {
-  iconSrc: string;
+  icon: string;
   title: string;
   active?: boolean;
   onClick?: () => void;
 };
 
-export function NavItem({ iconSrc, title, active = false, onClick }: NavItemProps) {
+export function NavItem({ icon, title, active = false, onClick }: NavItemProps) {
   return (
-    <Button className="nav-button" active={active} onClick={onClick} type="button">
+    <Button
+      layout="vertical"
+      active={active}
+      onClick={onClick}
+    >
       <img
-        className="icon"
-        src={iconSrc}
+        className="block size-icon shrink-0 object-contain"
+        src={icon}
         alt=""
         decoding="async"
       />
-      <h2 className="title">{title}</h2>
+      <h2 className="block overflow-hidden text-ellipsis whitespace-nowrap">{title}</h2>
     </Button>
   );
 }

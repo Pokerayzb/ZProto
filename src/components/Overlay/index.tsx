@@ -3,26 +3,25 @@ import { navBarPages } from "@navigation/navBar";
 import { useNavigation } from "@navigation/useNavigation";
 
 import { NavItem } from "./NavItem";
-import "./index.css";
 
 export function Overlay() {
   const { navigate, isActive } = useNavigation();
 
   return (
-    <div className="overlay">
-      <header className="header">
-        <div className="inner">
-          <div className="placeholder" aria-hidden />
+    <div className="pointer-events-none fixed inset-0 z-10 flex flex-col justify-between">
+      <header className="pointer-events-none flex items-start justify-center px-6 py-4">
+        <div className="pointer-events-auto">
+          <div className="min-h-8" aria-hidden />
         </div>
       </header>
 
-      <footer className="footer">
-        <div className="inner">
-          <Panel layout="horizontal" className="nav">
+      <footer className="pointer-events-none flex items-end justify-center px-6 py-4">
+        <div className="pointer-events-auto">
+          <Panel layout="horizontal">
             {navBarPages.map((page) => (
               <NavItem
                 key={page.id}
-                iconSrc={page.iconSrc}
+                icon={page.icon}
                 title={page.title}
                 active={isActive(page.id)}
                 onClick={() => {

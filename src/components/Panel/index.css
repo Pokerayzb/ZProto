@@ -46,22 +46,22 @@
   
   .panel > .t {
     grid-area: t;
-    background: url("./assets/e_t.png") repeat-x left top / var(--panel-e) var(--panel-c), var(--button-background);
+    background: url("./assets/e_t.png") repeat-x left top / var(--panel-e) var(--panel-c), var(--color-button-bg);
   }
   
   .panel > .b {
     grid-area: b;
-    background: url("./assets/e_b.png") repeat-x left bottom / var(--panel-e) var(--panel-c), var(--button-background);
+    background: url("./assets/e_b.png") repeat-x left bottom / var(--panel-e) var(--panel-c), var(--color-button-bg);
   }
   
   .panel > .l {
     grid-area: l;
-    background: url("./assets/e_l.png") repeat-y left top / var(--panel-c) var(--panel-e), var(--button-background);
+    background: url("./assets/e_l.png") repeat-y left top / var(--panel-c) var(--panel-e), var(--color-button-bg);
   }
   
   .panel > .r {
     grid-area: r;
-    background: url("./assets/e_r.png") repeat-y right top / var(--panel-c) var(--panel-e), var(--button-background);
+    background: url("./assets/e_r.png") repeat-y right top / var(--panel-c) var(--panel-e), var(--color-button-bg);
   }
   
   .panel > .content {
@@ -75,31 +75,30 @@
     left: var(--overlap);
     right: var(--overlap);
     bottom: var(--overlap);
-    background: var(--button-background);
+    background: var(--color-button-bg);
   }
   
   .panel > .content > .inner {
-    grid-area: c;
     position: relative;
-    display: grid;
     width: max-content;
     height: max-content;
     z-index: 1;
     min-width: 0;
     min-height: 0;
-    gap: var(--panel-gap);
-    align-items: stretch;
-    justify-items: stretch;
   }
-  
+
   .panel.horizontal > .content > .inner {
-    grid-auto-flow: column;
-    grid-auto-columns: minmax(max-content, 1fr);
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    gap: var(--panel-gap);
   }
-  
+
   .panel.vertical > .content > .inner {
-    grid-auto-flow: row;
-    grid-auto-rows: minmax(max-content, 1fr);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--panel-gap);
   }
   
   .panel.single > .content > .inner {

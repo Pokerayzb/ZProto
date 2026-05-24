@@ -1,35 +1,29 @@
 import type { ReactNode } from "react";
 
-import "./index.css";
+import type { Layout } from "@components/shared";
 
-export type PanelLayout = "horizontal" | "vertical";
+import "./index.css";
 
 export type PanelProps = {
   children: ReactNode;
-  layout?: PanelLayout;
-  className?: string;
+  layout?: Layout;
 };
 
-export function Panel({ children, layout = "horizontal", className }: PanelProps) {
-    const layoutClass = layout === "vertical" ? "vertical" : "horizontal";
-    const rootClass = ["panel", layoutClass, className].filter(Boolean).join(" ");
-
-    return (
-        <div className={rootClass}>
-            <span className="tl" aria-hidden />
-            <span className="t" aria-hidden />
-            <span className="tr" aria-hidden />
-            <span className="l" aria-hidden />
-            <div className="content">
-                <div className="background"></div>
-                <div className="inner">
-                    {children}
-                </div>
-            </div>
-            <span className="r" aria-hidden />
-            <span className="bl" aria-hidden />
-            <span className="b" aria-hidden />
-            <span className="br" aria-hidden />
-        </div>
-    );
+export function Panel({ children, layout = "horizontal" }: PanelProps) {
+  return (
+    <div className={"panel " + layout}>
+      <span className="tl" aria-hidden />
+      <span className="t" aria-hidden />
+      <span className="tr" aria-hidden />
+      <span className="l" aria-hidden />
+      <div className="content">
+        <div className="background"></div>
+        <div className="inner">{children}</div>
+      </div>
+      <span className="r" aria-hidden />
+      <span className="bl" aria-hidden />
+      <span className="b" aria-hidden />
+      <span className="br" aria-hidden />
+    </div>
+  );
 }

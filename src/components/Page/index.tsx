@@ -1,23 +1,26 @@
 import type { ReactNode } from "react";
 
-import backgroundSrc from "../../../concept/background.png";
-
-import "./index.css";
-
 export type PageProps = {
-    children?: ReactNode;
-    className?: string;
+  background: string;
+  children?: ReactNode;
 };
 
-export function Page({ children, className }: PageProps) {
-    const rootClass = ["page", className].filter(Boolean).join(" ");
-
-    return (
-        <div className={rootClass}>
-            <div className="page__background" aria-hidden>
-                <img src={backgroundSrc} alt="" decoding="async" fetchPriority="high" />
-            </div>
-            <div className="page__content">{children}</div>
-        </div>
-    );
+export function Page({ background, children }: PageProps) {
+  return (
+    <div className="relative min-h-dvh w-full overflow-hidden">
+      <div
+        className="absolute inset-0 z-0 overflow-hidden"
+        aria-hidden
+      >
+        <img
+          className="pointer-events-none absolute top-0 left-1/2 h-full w-auto max-w-none -translate-x-1/2 select-none"
+          src={background}
+          alt=""
+          decoding="async"
+          fetchPriority="high"
+        />
+      </div>
+      <div className="relative z-[1] min-h-dvh w-full">{children}</div>
+    </div>
+  );
 }

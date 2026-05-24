@@ -2,32 +2,22 @@
 
 @theme {
   --font-serif: "Zen Old Mincho", ui-serif, Georgia, serif;
+
+  --color-app-bg: #070b12;
+  --color-button-bg: #002128;
+  --color-button-text: #c9b36c;
+
+  --spacing-icon: 64px;
 }
 
 :root {
   --frame-scale: 0.3;
   --frame-corner-size: 100px;
   --frame-edge-size: 10px;
-  --button-background: #002128;
   --button-gap: 20px;
-  --button-text: #c9b36c;
-  --icon-size: 64px;
-  --font-family: "Zen Old Mincho", ui-serif, Georgia, serif;
+  --font-family: var(--font-serif);
 }
 
 html {
   font-family: var(--font-family);
-}
-
-.icon {
-  display: block;
-  box-sizing: border-box;
-  width: var(--icon-size);
-  height: var(--icon-size);
-  min-width: var(--icon-size);
-  min-height: var(--icon-size);
-  max-width: var(--icon-size);
-  max-height: var(--icon-size);
-  flex: none;
-  object-fit: contain;
 }

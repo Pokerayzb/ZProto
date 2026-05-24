@@ -3,7 +3,7 @@
   --button-padding: calc(10px * var(--frame-scale)) calc(15px * var(--frame-scale));
   --button-c: calc(var(--frame-corner-size) * var(--button-scale));
   --button-e: calc(var(--frame-edge-size) * var(--button-scale));
-  color: var(--button-text);
+  color: var(--color-button-text);
 
   display: grid;
   grid-template:
@@ -23,8 +23,7 @@
 }
 
 .button:disabled {
-  cursor: not-allowed;
-  opacity: 0.65;
+  @apply cursor-not-allowed opacity-65;
 }
 
 .button > span {
@@ -61,25 +60,25 @@
 .button > .t {
   grid-area: t;
   background: url("./assets/default/e_t.png") repeat-x left top / var(--button-e) var(--button-c),
-    var(--button-background);
+    var(--color-button-bg);
 }
 
 .button > .b {
   grid-area: b;
   background: url("./assets/default/e_b.png") repeat-x left bottom / var(--button-e) var(--button-c),
-    var(--button-background);
+    var(--color-button-bg);
 }
 
 .button > .l {
   grid-area: l;
   background: url("./assets/default/e_l.png") repeat-y left top / var(--button-c) var(--button-e),
-    var(--button-background);
+    var(--color-button-bg);
 }
 
 .button > .r {
   grid-area: r;
   background: url("./assets/default/e_r.png") repeat-y right top / var(--button-c) var(--button-e),
-    var(--button-background);
+    var(--color-button-bg);
 }
 
 .button > .content {
@@ -96,18 +95,15 @@
   min-width: 0;
   min-height: 0;
   padding: var(--button-padding);
-  background: var(--button-background);
+  background: var(--color-button-bg);
   text-align: center;
   text-shadow: 0 1px 0 rgb(0 0 0 / 45%);
   white-space: nowrap;
 }
 
-/* Inside a panel, fill the cell sized by the largest sibling. */
-.panel .button {
-  width: 100%;
-  height: 100%;
-  min-width: 0;
-  min-height: 0;
+.button.vertical > .content {
+  flex-direction: column;
+  white-space: normal;
 }
 
 .button.active > .tl,
@@ -133,24 +129,24 @@
 .button.active > .t,
 .button:active:not(:disabled) > .t {
   background: url("./assets/active/e_t.png") repeat-x left top / var(--button-e) var(--button-c),
-    var(--button-background);
+    var(--color-button-bg);
 }
 
 .button.active > .b,
 .button:active:not(:disabled) > .b {
   background: url("./assets/active/e_b.png") repeat-x left bottom / var(--button-e) var(--button-c),
-    var(--button-background);
+    var(--color-button-bg);
 }
 
 .button.active > .l,
 .button:active:not(:disabled) > .l {
   background: url("./assets/active/e_l.png") repeat-y left top / var(--button-c) var(--button-e),
-    var(--button-background);
+    var(--color-button-bg);
 }
 
 .button.active > .r,
 .button:active:not(:disabled) > .r {
   background: url("./assets/active/e_r.png") repeat-y right top / var(--button-c) var(--button-e),
-    var(--button-background);
+    var(--color-button-bg);
 }
   

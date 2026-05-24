@@ -12,7 +12,8 @@ export interface PageDefinition {
   id: PageId;
   path: string;
   title: string;
-  iconSrc: string;
+  icon: string;
+  background: string;
   Component: ComponentType;
 }
 
@@ -20,6 +21,7 @@ export interface DefinePageOptions {
   id: PageId;
   path: string;
   title: string;
-  iconSrc: string;
+  icon: string;
+  background: string;
   children?: ReactNode;
 }

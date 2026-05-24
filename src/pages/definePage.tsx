@@ -6,18 +6,20 @@ export function definePage({
   id,
   path,
   title,
-  iconSrc,
+  icon,
+  background,
   children,
 }: DefinePageOptions): PageDefinition {
   function Component() {
-    return <Page>{children}</Page>;
+    return <Page background={background}>{children}</Page>;
   }
 
   return {
     id,
     path,
     title,
-    iconSrc,
+    icon,
+    background,
     Component,
   };
 }
