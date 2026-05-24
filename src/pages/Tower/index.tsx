@@ -1,3 +1,4 @@
+import { Building } from "./Building";
 import { definePage } from "../definePage";
 
 import background from "./assets/background.png";
@@ -9,4 +10,14 @@ export const towerPage = definePage({
   title: "Башня",
   icon,
   background,
+  children: (
+    <Building
+      anchorY={52}
+      roomCoordinates={{
+        kitchen: { x: 35, y: 80 },
+        carpentry: { x: 35, y: 61 },
+        blacksmith: { x: 35, y: 42 },
+      }}
+    />
+  ),
 });

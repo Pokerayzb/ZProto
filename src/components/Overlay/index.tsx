@@ -2,6 +2,7 @@ import { Panel } from "@components/Panel";
 import { navBarPages } from "@navigation/navBar";
 import { useNavigation } from "@navigation/useNavigation";
 
+import { Header } from "./Header";
 import { NavItem } from "./NavItem";
 
 export function Overlay() {
@@ -9,9 +10,9 @@ export function Overlay() {
 
   return (
     <div className="pointer-events-none fixed inset-0 z-10 flex flex-col justify-between">
-      <header className="pointer-events-none flex items-start justify-center px-6 py-4">
-        <div className="pointer-events-auto">
-          <div className="min-h-8" aria-hidden />
+      <header className="pointer-events-none w-full">
+        <div className="pointer-events-auto w-full">
+          <Header />
         </div>
       </header>
 

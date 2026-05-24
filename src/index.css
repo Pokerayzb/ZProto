@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --font-serif: "Zen Old Mincho", ui-serif, Georgia, serif;
+  --font-serif: "Zen Old Mincho", "Noto Serif", serif;
 
   --color-app-bg: #070b12;
   --color-button-bg: #002128;
@@ -15,9 +15,24 @@
   --frame-corner-size: 100px;
   --frame-edge-size: 10px;
   --button-gap: 20px;
-  --font-family: var(--font-serif);
+  --tower-height: 72%;
+  --tower-room-width: 50%;
 }
 
-html {
-  font-family: var(--font-family);
+@layer base {
+  h1 {
+    @apply text-4xl font-bold leading-normal;
+  }
+
+  h2 {
+    @apply text-2xl font-semibold;
+  }
+
+  h3 {
+    @apply text-xl;
+  }
+
+  h4 {
+    @apply text-lg;
+  }
 }

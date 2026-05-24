@@ -4,10 +4,10 @@ import type { Layout } from "@components/shared";
 
 import "./index.css";
 
-export type PanelProps = {
+export interface PanelProps {
   children: ReactNode;
   layout?: Layout;
-};
+}
 
 export function Panel({ children, layout = "horizontal" }: PanelProps) {
   return (
@@ -17,7 +17,7 @@ export function Panel({ children, layout = "horizontal" }: PanelProps) {
       <span className="tr" aria-hidden />
       <span className="l" aria-hidden />
       <div className="content">
-        <div className="background"></div>
+        <div className="background" />
         <div className="inner">{children}</div>
       </div>
       <span className="r" aria-hidden />

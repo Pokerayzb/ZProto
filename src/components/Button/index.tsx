@@ -4,14 +4,12 @@ import type { Layout } from "@components/shared";
 
 import "./index.css";
 
-export type ButtonProps = Omit<
-  ButtonHTMLAttributes<HTMLButtonElement>,
-  "children"
-> & {
+export interface ButtonProps
+  extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children" | "className"> {
   children: ReactNode;
   active?: boolean;
   layout?: Layout;
-};
+}
 
 export function Button({
   children,
@@ -25,7 +23,10 @@ export function Button({
       <span className="t" aria-hidden />
       <span className="tr" aria-hidden />
       <span className="l" aria-hidden />
-      <span className="content">{children}</span>
+      <div className="content">
+        <div className="background" />
+        <div className="inner">{children}</div>
+      </div>
       <span className="r" aria-hidden />
       <span className="bl" aria-hidden />
       <span className="b" aria-hidden />

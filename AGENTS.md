@@ -9,7 +9,7 @@ The type is a SPA
 - Typescript
 - Vite
 - React 19
-- Tailwind
+- Tailwind (primary styling for layout and positioning; see `.cursor/rules/css-tailwind.mdc`)
 
 # Structure
 

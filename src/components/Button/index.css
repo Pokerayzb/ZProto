@@ -1,9 +1,17 @@
 .button {
   --button-scale: calc(var(--frame-scale) * 0.7);
-  --button-padding: calc(10px * var(--frame-scale)) calc(15px * var(--frame-scale));
+  --overlap: calc(75px * var(--button-scale));
+  --button-padding: calc(24px * var(--frame-scale)) calc(32px * var(--frame-scale));
   --button-c: calc(var(--frame-corner-size) * var(--button-scale));
   --button-e: calc(var(--frame-edge-size) * var(--button-scale));
-  color: var(--color-button-text);
+  --button-tl: url("./assets/default/c_l_t.png");
+  --button-tr: url("./assets/default/c_r_t.png");
+  --button-bl: url("./assets/default/c_l_b.png");
+  --button-br: url("./assets/default/c_r_b.png");
+  --button-t: url("./assets/default/e_t.png");
+  --button-b: url("./assets/default/e_b.png");
+  --button-l: url("./assets/default/e_l.png");
+  --button-r: url("./assets/default/e_r.png");
 
   display: grid;
   grid-template:
@@ -16,14 +24,28 @@
   max-width: 100%;
   margin: 0;
   padding: 0;
-  border: none;
+  border: 0;
+  color: var(--color-button-text);
   background: transparent;
   cursor: pointer;
   appearance: none;
 }
 
+.button.active,
+.button:active:not(:disabled) {
+  --button-tl: url("./assets/active/c_l_t.png");
+  --button-tr: url("./assets/active/c_r_t.png");
+  --button-bl: url("./assets/active/c_l_b.png");
+  --button-br: url("./assets/active/c_r_b.png");
+  --button-t: url("./assets/active/e_t.png");
+  --button-b: url("./assets/active/e_b.png");
+  --button-l: url("./assets/active/e_l.png");
+  --button-r: url("./assets/active/e_r.png");
+}
+
 .button:disabled {
-  @apply cursor-not-allowed opacity-65;
+  cursor: not-allowed;
+  opacity: 65%;
 }
 
 .button > span {
@@ -33,120 +55,88 @@
   pointer-events: none;
 }
 
+.button > .tl,
+.button > .tr,
+.button > .bl,
+.button > .br {
+  background-repeat: no-repeat;
+  background-size: var(--button-c) var(--button-c);
+}
+
 .button > .tl {
   grid-area: tl;
-  background: url("./assets/default/c_l_t.png") no-repeat;
-  background-size: var(--button-c) var(--button-c);
+  background-image: var(--button-tl);
 }
 
 .button > .tr {
   grid-area: tr;
-  background: url("./assets/default/c_r_t.png") no-repeat;
-  background-size: var(--button-c) var(--button-c);
+  background-image: var(--button-tr);
 }
 
 .button > .bl {
   grid-area: bl;
-  background: url("./assets/default/c_l_b.png") no-repeat;
-  background-size: var(--button-c) var(--button-c);
+  background-image: var(--button-bl);
 }
 
 .button > .br {
   grid-area: br;
-  background: url("./assets/default/c_r_b.png") no-repeat;
-  background-size: var(--button-c) var(--button-c);
+  background-image: var(--button-br);
 }
 
 .button > .t {
   grid-area: t;
-  background: url("./assets/default/e_t.png") repeat-x left top / var(--button-e) var(--button-c),
-    var(--color-button-bg);
+  background: var(--button-t) repeat-x left top / var(--button-e) var(--button-c), var(--color-button-bg);
 }
 
 .button > .b {
   grid-area: b;
-  background: url("./assets/default/e_b.png") repeat-x left bottom / var(--button-e) var(--button-c),
-    var(--color-button-bg);
+  background: var(--button-b) repeat-x left bottom / var(--button-e) var(--button-c), var(--color-button-bg);
 }
 
 .button > .l {
   grid-area: l;
-  background: url("./assets/default/e_l.png") repeat-y left top / var(--button-c) var(--button-e),
-    var(--color-button-bg);
+  background: var(--button-l) repeat-y left top / var(--button-c) var(--button-e), var(--color-button-bg);
 }
 
 .button > .r {
   grid-area: r;
-  background: url("./assets/default/e_r.png") repeat-y right top / var(--button-c) var(--button-e),
-    var(--color-button-bg);
+  background: var(--button-r) repeat-y right top / var(--button-c) var(--button-e), var(--color-button-bg);
 }
 
 .button > .content {
   grid-area: c;
-  place-self: center;
+  position: relative;
+  place-self: stretch;
+  min-width: 0;
+  min-height: 0;
+  margin: calc(var(--overlap) * -1);
+}
+
+.button > .content > .background {
+  position: absolute;
+  inset: var(--overlap);
+  background: var(--color-button-bg);
+}
+
+.button > .content > .inner {
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-sizing: border-box;
-  width: max-content;
-  max-width: 100%;
-  height: max-content;
-  max-height: 100%;
   min-width: 0;
   min-height: 0;
   padding: var(--button-padding);
-  background: var(--color-button-bg);
   text-align: center;
   text-shadow: 0 1px 0 rgb(0 0 0 / 45%);
+}
+
+.button.horizontal > .content > .inner {
   white-space: nowrap;
 }
 
-.button.vertical > .content {
+.button.vertical > .content > .inner {
   flex-direction: column;
   white-space: normal;
 }
-
-.button.active > .tl,
-.button:active:not(:disabled) > .tl {
-  background-image: url("./assets/active/c_l_t.png");
-}
-
-.button.active > .tr,
-.button:active:not(:disabled) > .tr {
-  background-image: url("./assets/active/c_r_t.png");
-}
-
-.button.active > .bl,
-.button:active:not(:disabled) > .bl {
-  background-image: url("./assets/active/c_l_b.png");
-}
-
-.button.active > .br,
-.button:active:not(:disabled) > .br {
-  background-image: url("./assets/active/c_r_b.png");
-}
-
-.button.active > .t,
-.button:active:not(:disabled) > .t {
-  background: url("./assets/active/e_t.png") repeat-x left top / var(--button-e) var(--button-c),
-    var(--color-button-bg);
-}
-
-.button.active > .b,
-.button:active:not(:disabled) > .b {
-  background: url("./assets/active/e_b.png") repeat-x left bottom / var(--button-e) var(--button-c),
-    var(--color-button-bg);
-}
-
-.button.active > .l,
-.button:active:not(:disabled) > .l {
-  background: url("./assets/active/e_l.png") repeat-y left top / var(--button-c) var(--button-e),
-    var(--color-button-bg);
-}
-
-.button.active > .r,
-.button:active:not(:disabled) > .r {
-  background: url("./assets/active/e_r.png") repeat-y right top / var(--button-c) var(--button-e),
-    var(--color-button-bg);
-}
-  

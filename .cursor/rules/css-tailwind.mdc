@@ -1,0 +1,65 @@
+---
+description: Tailwind-first layout; global tokens in index.css; component CSS for complex styling only
+globs: "**/*.{css,tsx}"
+alwaysApply: false
+---
+
+# CSS: Tailwind-first, few globals
+
+## Tailwind in TSX
+
+Use **Tailwind utility classes** for standard layout and positioning: flex/grid, gap, padding/margin, alignment, sizing, overflow, z-index, visibility, responsive breakpoints.
+
+```tsx
+/* ❌ BAD — layout in component CSS */
+<div className="panel">
+
+/* ✅ GOOD */
+<div className="flex flex-col gap-4 p-6 min-h-0">
+```
+
+Do **not** add component `index.css` rules that only duplicate utilities (`display: flex`, `position: absolute`, `gap: 1rem`, etc.). Put those on the element in TSX.
+
+## Global tokens: `src/index.css`
+
+Define **few, heavily reused** design tokens in `src/index.css` (imported from `main.tsx`):
+
+- **`@theme`** — colors, fonts, spacing scales exposed to Tailwind (`bg-app-bg`, `text-button-text`, etc.)
+- **`:root`** — cross-component CSS variables consumed by component styles (`--frame-scale`, `--button-gap`, …)
+
+Add a new global variable only when **multiple** components or Tailwind utilities need the same value. Prefer `@theme` tokens over ad-hoc `:root` names when Tailwind should own the name.
+
+Do **not** scatter one-off globals in component CSS or page-level stylesheets.
+
+## Component `index.css`
+
+Colocate **non-trivial** styling in the component’s `index.css` (see `css-nested-classes` for class naming):
+
+- Multi-layer backgrounds, masks, clip-paths, custom grids tied to assets
+- Calculations from shared globals (`var(--frame-scale)`)
+- Selectors that are awkward or noisy as long Tailwind class strings
+
+Keep component files focused; use `@apply` sparingly for repeated utility bundles inside CSS (e.g. disabled states), not as a substitute for TSX layout.
+
+```css
+/* ✅ GOOD — custom frame geometry, shared tokens */
+.button {
+  --button-scale: calc(var(--frame-scale) * 0.7);
+  display: grid;
+  grid-template: /* … */;
+}
+
+.button:disabled {
+  @apply cursor-not-allowed opacity-65;
+}
+```
+
+## Decision checklist
+
+| Need | Where |
+|------|--------|
+| Flex/grid, spacing, position in UI | Tailwind on TSX |
+| App-wide color, font, spacing token | `src/index.css` `@theme` or `:root` |
+| Asset-backed shape, nested block styling | Component `index.css` |
+
+Reference: `src/index.css`, `src/components/Button/`.
