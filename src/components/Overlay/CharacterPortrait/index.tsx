@@ -1,7 +1,6 @@
 import { LevelBadge } from "@components/LevelBadge";
 
 import avatarFrame from "./assets/big_butt_skill.png";
-import portrait from "./assets/portrait.png";
 import type { CharacterPortraitProps } from "./types";
 
 const prototypeCharacter: CharacterPortraitProps = {

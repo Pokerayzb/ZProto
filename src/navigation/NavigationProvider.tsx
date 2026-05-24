@@ -23,6 +23,36 @@ export const NavigationContext = createContext<NavigationContextValue | null>(
   null,
 );
 
+const appBasePath = normalizeBasePath(import.meta.env.BASE_URL);
+
+function normalizeBasePath(base: string): string {
+  if (!base || base === "/") {
+    return "";
+  }
+
+  return base.endsWith("/") ? base.slice(0, -1) : base;
+}
+
+function withBasePath(path: string): string {
+  return appBasePath === "" ? path : `${appBasePath}${path}`;
+}
+
+function stripBasePath(pathname: string): string {
+  if (appBasePath === "" || pathname === "") {
+    return pathname || "/";
+  }
+
+  if (pathname === appBasePath) {
+    return "/";
+  }
+
+  if (pathname.startsWith(`${appBasePath}/`)) {
+    return pathname.slice(appBasePath.length);
+  }
+
+  return pathname;
+}
+
 function resolvePageIdFromPath(pathname: string): PageId {
   if (pathname === "/" || pathname === "") {
     return DEFAULT_PAGE_ID;
@@ -32,20 +62,21 @@ function resolvePageIdFromPath(pathname: string): PageId {
 }
 
 function syncBrowserPath(path: string, replace: boolean) {
+  const targetPath = withBasePath(path);
   const current = `${window.location.pathname}${window.location.search}`;
-  if (current === path) {
+  if (current === targetPath) {
     return;
   }
 
   if (replace) {
-    window.history.replaceState(null, "", path);
+    window.history.replaceState(null, "", targetPath);
   } else {
-    window.history.pushState(null, "", path);
+    window.history.pushState(null, "", targetPath);
   }
 }
 
 function readInitialPage(): PageId {
-  const pathname = window.location.pathname;
+  const pathname = stripBasePath(window.location.pathname);
   const pageId = resolvePageIdFromPath(pathname);
   const canonicalPath =
     pathname === "/" || pathname === ""
@@ -78,7 +109,7 @@ export function NavigationProvider({ children }: NavigationProviderProps) {
 
   useEffect(() => {
     const onPopState = () => {
-      setPageId(resolvePageIdFromPath(window.location.pathname));
+      setPageId(resolvePageIdFromPath(stripBasePath(window.location.pathname)));
     };
 
     window.addEventListener("popstate", onPopState);
