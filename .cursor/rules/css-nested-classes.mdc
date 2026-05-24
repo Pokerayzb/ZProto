@@ -1,0 +1,57 @@
+---
+description: Brief nested CSS classes — block + child selectors, not BEM chains
+globs: "**/*.{css,tsx}"
+alwaysApply: false
+---
+
+# CSS: nested block classes
+
+Use **one root block class** per component and **short child class names** scoped with selectors. Do not build BEM-style compound names on every node.
+
+## Naming
+
+| Role | Class | Selector example |
+|------|--------|------------------|
+| Block (root) | `button`, `panel`, `page` | `.button` |
+| State on root | `active`, `disabled`, `open` | `.button.active`, `.panel.open` |
+| Child | `content`, `label`, `inner` | `.button > .content > .label` |
+
+- **Do not** use `block__element`, `block__element--modifier`, or repeated prefixes like `button__active__content__inner`.
+- **Do** add state as a **second class on the root**: `className={["button", active && "active"].filter(Boolean).join(" ")}`.
+- **Do** keep child `className` values short (`content`, `label`); scope them in CSS under the block.
+
+## CSS
+
+Colocate styles in the component’s `index.css`. Prefer direct-child selectors when structure is fixed:
+
+```css
+/* ❌ BAD */
+.button__active .button__active__content .button__active__content__inner { }
+
+/* ✅ GOOD */
+.button.active > .content > .inner { }
+.button > .content { }
+.button > .label { }
+```
+
+Contextual overrides use ancestor blocks, not renamed children:
+
+```css
+/* ✅ GOOD */
+.panel .button { }
+.page > .content { }
+```
+
+## TSX
+
+```tsx
+/* ❌ BAD */
+<div className="button__content">
+  <span className="button__content__inner" />
+
+/* ✅ GOOD */
+<div className="content">
+  <span className="inner" />
+```
+
+Reference: `src/components/Button/` (`button`, `active`, `> .content`, `> .label`).

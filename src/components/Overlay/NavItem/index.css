@@ -1,0 +1,18 @@
+.panel.nav.horizontal > .content > .inner {
+  grid-auto-columns: minmax(max-content, 1fr);
+  align-items: stretch;
+  justify-items: stretch;
+}
+
+.nav-button > .content {
+  flex-direction: column;
+  align-items: center;
+  white-space: normal;
+}
+
+.nav-button .title {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

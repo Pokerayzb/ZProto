@@ -1,0 +1,109 @@
+.panel {
+  --overlap: calc(75px * var(--frame-scale));
+  --panel-c: calc(var(--frame-corner-size) * var(--frame-scale));
+  --panel-e: calc(var(--frame-edge-size) * var(--frame-scale));
+  --panel-gap: calc(var(--button-gap) * var(--frame-scale));
+
+    display: grid;
+    grid-template:
+      "tl t tr" var(--panel-c)
+      "l  c r" 1fr
+      "bl b br" var(--panel-c)
+      / var(--panel-c) 1fr var(--panel-c);
+    width: fit-content;
+    max-width: 100%;
+  }
+  
+  .panel > span {
+    display: block;
+    min-width: 0;
+    min-height: 0;
+  }
+  
+  .panel > .tl {
+    grid-area: tl;
+    background: url("./assets/c_l_t.png") no-repeat;
+    background-size: var(--panel-c) var(--panel-c);
+  }
+  
+  .panel > .tr {
+    grid-area: tr;
+    background: url("./assets/c_r_t.png") no-repeat;
+    background-size: var(--panel-c) var(--panel-c);
+  }
+  
+  .panel > .bl {
+    grid-area: bl;
+    background: url("./assets/c_l_b.png") no-repeat;
+    background-size: var(--panel-c) var(--panel-c);
+  }
+  
+  .panel > .br {
+    grid-area: br;
+    background: url("./assets/c_r_b.png") no-repeat;
+    background-size: var(--panel-c) var(--panel-c);
+  }
+  
+  .panel > .t {
+    grid-area: t;
+    background: url("./assets/e_t.png") repeat-x left top / var(--panel-e) var(--panel-c), var(--button-background);
+  }
+  
+  .panel > .b {
+    grid-area: b;
+    background: url("./assets/e_b.png") repeat-x left bottom / var(--panel-e) var(--panel-c), var(--button-background);
+  }
+  
+  .panel > .l {
+    grid-area: l;
+    background: url("./assets/e_l.png") repeat-y left top / var(--panel-c) var(--panel-e), var(--button-background);
+  }
+  
+  .panel > .r {
+    grid-area: r;
+    background: url("./assets/e_r.png") repeat-y right top / var(--panel-c) var(--panel-e), var(--button-background);
+  }
+  
+  .panel > .content {
+    position: relative;
+    margin: calc(var(--overlap) * -1); 
+  }
+  
+  .panel > .content > .background {
+    position: absolute;
+    top: var(--overlap);
+    left: var(--overlap);
+    right: var(--overlap);
+    bottom: var(--overlap);
+    background: var(--button-background);
+  }
+  
+  .panel > .content > .inner {
+    grid-area: c;
+    position: relative;
+    display: grid;
+    width: max-content;
+    height: max-content;
+    z-index: 1;
+    min-width: 0;
+    min-height: 0;
+    gap: var(--panel-gap);
+    align-items: stretch;
+    justify-items: stretch;
+  }
+  
+  .panel.horizontal > .content > .inner {
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(max-content, 1fr);
+  }
+  
+  .panel.vertical > .content > .inner {
+    grid-auto-flow: row;
+    grid-auto-rows: minmax(max-content, 1fr);
+  }
+  
+  .panel.single > .content > .inner {
+    padding: 0;
+    gap: 0;
+  }
+  

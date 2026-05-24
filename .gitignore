@@ -1,0 +1,30 @@
+# dependencies
+node_modules
+
+# build
+dist
+dist-ssr
+*.local
+
+# editor
+.vscode/*
+!.vscode/extensions.json
+.idea
+
+# logs
+logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# env
+.env
+.env.*
+
+# typescript
+*.tsbuildinfo
+
+# temp files
+concept
