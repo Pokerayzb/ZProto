@@ -2,6 +2,8 @@ import { useEffect, useMemo, type ReactNode } from 'react';
 
 import { GameContext } from '@game/context/GameContext';
 import { createEngine } from '@game/engine/createEngine';
+import { Award } from '@game/events/Award';
+import type { GameEvent } from '@game/events/GameEvent';
 import { SAVE_INTERVAL_MS, saveState } from '@game/persist/storage';
 
 export interface GameProviderProps {
@@ -18,9 +20,22 @@ export function GameProvider({ children }: GameProviderProps) {
       saveState(engine.getState());
     }, SAVE_INTERVAL_MS);
 
+    if (import.meta.env.DEV) {
+      window.__zproto = {
+        dispatch: (event: GameEvent) => {
+          engine.dispatch(event);
+        },
+        getState: () => engine.getState(),
+        Award,
+      };
+    }
+
     return () => {
       clearInterval(saveIntervalId);
       engine.stop();
+      if (import.meta.env.DEV) {
+        delete window.__zproto;
+      }
     };
   }, [engine]);
 

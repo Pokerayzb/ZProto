@@ -47,6 +47,10 @@ function normalizeLoadedState(state: GameState): GameState {
         ...state.player.reputation,
       },
     },
+    inventory: {
+      ...initial.inventory,
+      ...state.inventory,
+    },
     professions: {
       ...initial.professions,
       ...state.professions,

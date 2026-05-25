@@ -1,9 +1,11 @@
+import type { LevelProgress } from '@game/state/types';
+
 import levelBadgeBg from './dot_des.png';
 
 export type LevelBadgeSize = "normal" | "large";
 
 export interface LevelBadgeProps {
-  level: number;
+  level: LevelProgress;
   size?: LevelBadgeSize;
 }
 
@@ -27,7 +29,7 @@ export function LevelBadge({ level, size = "normal" }: LevelBadgeProps) {
   return (
     <div
       className={`relative grid place-items-center text-button-text ${classes.container}`}
-      aria-label={`Level ${level}`}
+      aria-label={`Level ${level.value}`}
     >
       <img
         className="pointer-events-none col-start-1 row-start-1 size-full object-contain"
@@ -39,7 +41,7 @@ export function LevelBadge({ level, size = "normal" }: LevelBadgeProps) {
       <h2
         className={`z-10 col-start-1 row-start-1 text-center leading-none ${classes.label} -mt-1`}
       >
-        {level}
+        {level.value}
       </h2>
     </div>
   );

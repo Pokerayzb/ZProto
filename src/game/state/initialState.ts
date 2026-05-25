@@ -1,3 +1,4 @@
+import { initialLevelProgress } from '@game/progression';
 import type { FactionId, GameState } from '@game/state/types';
 
 export function createInitialState(): GameState {
@@ -5,8 +6,7 @@ export function createInitialState(): GameState {
     player: {
       name: 'Richard Bower',
       status: 'Newcomer',
-      level: 1,
-      levelProgress: 0,
+      level: initialLevelProgress,
       gold: 0,
       reputation: {
         traders: 0,
@@ -15,6 +15,7 @@ export function createInitialState(): GameState {
         artisans: 0,
       } satisfies Record<FactionId, number>,
     },
+    inventory: {},
     professions: {
       blacksmithing: { skills: {} },
       cooking: { skills: {} },

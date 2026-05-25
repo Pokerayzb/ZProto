@@ -1,4 +1,5 @@
 import { LevelBadge } from '@components/LevelBadge';
+import { CoinBadge } from '@components/Overlay/CoinBadge';
 import { useGameState } from '@game/hooks/useGameState';
 
 import avatarFrame from './assets/big_butt_skill.png';
@@ -9,7 +10,7 @@ export function CharacterPortrait() {
   const level = useGameState((state) => state.player.level);
 
   return (
-    <div className="flex items-center gap-3 text-button-text">
+    <div className="flex w-max items-center gap-3 text-button-text">
       <div className="relative shrink-0 overflow-visible">
         <div className="relative h-40">
           <div className="absolute bottom-0 right-0 z-2">
@@ -24,9 +25,12 @@ export function CharacterPortrait() {
           />
         </div>
       </div>
-      <div className="flex min-w-0 flex-col gap-1">
-        <h2 className="m-0 truncate">{name}</h2>
-        <h3 className="m-0 truncate text-button-text/70">{status || '\u00A0'}</h3>
+      <div className="flex items-center gap-4">
+        <div className="flex flex-col gap-1">
+          <h1 className="m-0 whitespace-nowrap">{name}</h1>
+          <h3 className="m-0 whitespace-nowrap text-button-text/70">{status || '\u00A0'}</h3>
+        </div>
+        <CoinBadge />
       </div>
     </div>
   );

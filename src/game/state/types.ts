@@ -1,23 +1,21 @@
+import type { LevelProgress } from '@game/progression';
+
+export type { LevelProgress };
+
 export type FactionId = 'traders' | 'aristocrats' | 'mystics' | 'artisans';
 
 export type Player = {
   name: string;
   status: string;
-  level: number;
-  levelProgress: number;
+  level: LevelProgress;
   gold: number;
   reputation: Record<FactionId, number>;
 };
 
 export type ProfessionId = 'blacksmithing' | 'cooking' | 'carpentry';
 
-export type SkillProgress = {
-  level: number;
-  levelProgress: number;
-};
-
 export type PlayerProfession = {
-  skills: Partial<Record<string, SkillProgress>>;
+  skills: Partial<Record<string, LevelProgress>>;
 };
 
 export type PlayerProfessions = Record<ProfessionId, PlayerProfession>;
@@ -35,8 +33,11 @@ export type CurrentTask = {
   startedAt: number;
 };
 
+export type Inventory = Record<string, number>;
+
 export type GameState = {
   player: Player;
+  inventory: Inventory;
   professions: PlayerProfessions;
   taskQueue: TaskQueue;
   currentTask: CurrentTask | null;

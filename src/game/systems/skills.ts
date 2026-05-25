@@ -1,6 +1,5 @@
+import { applyExperience } from '@game/progression';
 import type { GameState, ProfessionId } from '@game/state/types';
-
-const XP_PER_LEVEL = 100;
 
 export function addSkillExperience(
   state: GameState,
@@ -15,14 +14,6 @@ export function addSkillExperience(
     return state;
   }
 
-  let level = existing.level;
-  let levelProgress = existing.levelProgress + experienceGained;
-
-  while (levelProgress >= XP_PER_LEVEL) {
-    levelProgress -= XP_PER_LEVEL;
-    level += 1;
-  }
-
   return {
     ...state,
     professions: {
@@ -30,7 +21,7 @@ export function addSkillExperience(
       [professionId]: {
         skills: {
           ...profession.skills,
-          [skillId]: { level, levelProgress },
+          [skillId]: applyExperience(existing, experienceGained),
         },
       },
     },

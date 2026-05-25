@@ -11,7 +11,7 @@ Header HUD from `state.player`.
 | Component | Binds to |
 |-----------|----------|
 | `CharacterPortrait` | `player.name`, `player.status`, `player.level` |
-| `LevelBadge` | `player.level`, `player.levelProgress` |
+| `LevelBadge` | `player.level` (`LevelProgress`) |
 | Header (extend) | `player.gold`, `player.reputation` — layout TBD |
 
 Use `useGameState` selectors. Visible on all pages.

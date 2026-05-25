@@ -39,10 +39,15 @@ type FactionId = "traders" | "aristocrats" | "mystics" | "artisans";
 type Player = {
   name: string;
   status: string;
-  level: number;
-  levelProgress: number;
+  level: LevelProgress;
   gold: number;
   reputation: Record<FactionId, number>;
+};
+
+type LevelProgress = {
+  value: number;
+  target: number;
+  progress: number;
 };
 ```
 
@@ -50,8 +55,7 @@ type Player = {
 |-------|-------|
 | `name` | Display name |
 | `status` | Status line — enum TBD |
-| `level` | Integer ≥ 1 |
-| `levelProgress` | Toward next level — unit TBD |
+| `level` | `LevelProgress` — player tier + XP toward next ([progression](../../src/game/progression.ts)) |
 | `gold` | ≥ 0 |
 | `reputation` | One value per faction — scale TBD |
 
@@ -64,13 +68,8 @@ type Player = {
 ```ts
 type ProfessionId = "blacksmithing" | "cooking" | "carpentry";
 
-type SkillProgress = {
-  level: number;
-  levelProgress: number;
-};
-
 type PlayerProfession = {
-  skills: Partial<Record<string, SkillProgress>>;
+  skills: Partial<Record<string, LevelProgress>>;
 };
 
 type PlayerProfessions = Record<ProfessionId, PlayerProfession>;
@@ -78,7 +77,7 @@ type PlayerProfessions = Record<ProfessionId, PlayerProfession>;
 
 - Skill referenced by `skillId` string (defined in [02-library](./02-library.md)).
 - **Not learned:** no entry in `skills`.
-- **Learned:** `{ level: ≥1, levelProgress }`.
+- **Learned:** `LevelProgress` with `value` ≥ 1.
 
 All three professions exist from start with empty `skills`.
 
@@ -120,8 +119,7 @@ One active skill at a time. `null` = idle.
   "player": {
     "name": "Player",
     "status": "",
-    "level": 1,
-    "levelProgress": 0,
+    "level": { "value": 1, "target": 100, "progress": 0 },
     "gold": 0,
     "reputation": {
       "traders": 0,
@@ -146,6 +144,5 @@ One active skill at a time. `null` = idle.
 
 ## Open questions
 
-1. `levelProgress` — ratio 0..1 or absolute XP?
-2. `status` — free text or enum?
+1. `status` — free text or enum?
 3. Reputation scale?
