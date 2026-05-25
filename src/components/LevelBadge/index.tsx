@@ -7,6 +7,7 @@ export type LevelBadgeSize = "normal" | "large";
 export interface LevelBadgeProps {
   level: LevelProgress;
   size?: LevelBadgeSize;
+  className?: string;
 }
 
 const sizeClasses: Record<
@@ -23,12 +24,16 @@ const sizeClasses: Record<
   },
 };
 
-export function LevelBadge({ level, size = "normal" }: LevelBadgeProps) {
+export function LevelBadge({
+  level,
+  size = 'normal',
+  className,
+}: LevelBadgeProps) {
   const classes = sizeClasses[size];
 
   return (
     <div
-      className={`relative grid place-items-center text-button-text ${classes.container}`}
+      className={`relative grid place-items-center text-button-text ${classes.container}${className ? ' ' + className : ''}`}
       aria-label={`Level ${level.value}`}
     >
       <img

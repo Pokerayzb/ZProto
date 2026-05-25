@@ -7,11 +7,17 @@ function formatGold(amount: number): string {
   return amount.toLocaleString('en-US').replace(/,/g, '\u00A0');
 }
 
-export function CoinBadge() {
+export interface CoinBadgeProps {
+  className?: string;
+}
+
+export function CoinBadge({ className }: CoinBadgeProps = {}) {
   const gold = useGameState((state) => state.player.gold);
 
+  const classes = 'shrink-0' + (className ? ' ' + className : '');
+
   return (
-    <div className="shrink-0">
+    <div className={classes}>
       <Panel layout="horizontal">
       <div
         className="flex shrink-0 items-center gap-3 px-2 py-1 text-button-text"

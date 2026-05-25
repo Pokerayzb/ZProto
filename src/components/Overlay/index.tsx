@@ -5,11 +5,19 @@ import { useNavigation } from '@navigation/useNavigation';
 import { Header } from './Header';
 import { NavItem } from './NavItem';
 
-export function Overlay() {
+export interface OverlayProps {
+  className?: string;
+}
+
+export function Overlay({ className }: OverlayProps = {}) {
   const { navigate, isActive } = useNavigation();
 
+  const classes =
+    'pointer-events-none fixed inset-0 z-10 flex flex-col justify-between' +
+    (className ? ' ' + className : '');
+
   return (
-    <div className="pointer-events-none fixed inset-0 z-10 flex flex-col justify-between">
+    <div className={classes}>
       <header className="pointer-events-none w-full">
         <div className="pointer-events-auto w-full">
           <Header />

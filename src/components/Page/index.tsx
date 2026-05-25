@@ -3,11 +3,16 @@ import type { ReactNode } from 'react';
 export type PageProps = {
   background: string;
   children?: ReactNode;
+  className?: string;
 };
 
-export function Page({ background, children }: PageProps) {
+export function Page({ background, children, className }: PageProps) {
+  const classes =
+    'relative min-h-dvh w-full overflow-hidden' +
+    (className ? ' ' + className : '');
+
   return (
-    <div className="relative min-h-dvh w-full overflow-hidden">
+    <div className={classes}>
       <div
         className="absolute inset-0 z-0 overflow-hidden"
         aria-hidden

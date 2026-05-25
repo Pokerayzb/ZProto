@@ -4,13 +4,19 @@ import { useGameState } from '@game/hooks/useGameState';
 
 import avatarFrame from './assets/big_butt_skill.png';
 
-export function CharacterPortrait() {
+import type { CharacterPortraitProps } from './types';
+
+export function CharacterPortrait({ className }: CharacterPortraitProps = {}) {
   const name = useGameState((state) => state.player.name);
   const status = useGameState((state) => state.player.status);
   const level = useGameState((state) => state.player.level);
 
+  const classes =
+    'flex w-max items-center gap-3 text-button-text' +
+    (className ? ' ' + className : '');
+
   return (
-    <div className="flex w-max items-center gap-3 text-button-text">
+    <div className={classes}>
       <div className="relative shrink-0 overflow-visible">
         <div className="relative h-40">
           <div className="absolute bottom-0 right-0 z-2">

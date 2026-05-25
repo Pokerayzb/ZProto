@@ -7,11 +7,18 @@ import './index.css';
 export interface PanelProps {
   children: ReactNode;
   layout?: Layout;
+  className?: string;
 }
 
-export function Panel({ children, layout = "horizontal" }: PanelProps) {
+export function Panel({
+  children,
+  layout = 'horizontal',
+  className,
+}: PanelProps) {
+  const classes = 'panel ' + layout + (className ? ' ' + className : '');
+
   return (
-    <div className={"panel " + layout}>
+    <div className={classes}>
       <span className="tl" aria-hidden />
       <span className="t" aria-hidden />
       <span className="tr" aria-hidden />

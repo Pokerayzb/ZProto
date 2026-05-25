@@ -5,7 +5,7 @@ import type { Layout } from '@components/shared';
 import './index.css';
 
 export interface ButtonProps
-  extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children" | "className"> {
+  extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children'> {
   children: ReactNode;
   active?: boolean;
   layout?: Layout;
@@ -14,11 +14,18 @@ export interface ButtonProps
 export function Button({
   children,
   active = false,
-  layout = "horizontal",
+  layout = 'horizontal',
+  className,
   ...rest
 }: ButtonProps) {
+  const classes =
+    'button ' +
+    layout +
+    (active ? ' active' : '') +
+    (className ? ' ' + className : '');
+
   return (
-    <button className={"button " + layout + (active ? " active" : "")} type="button" {...rest}>
+    <button className={classes} type="button" {...rest}>
       <span className="tl" aria-hidden />
       <span className="t" aria-hidden />
       <span className="tr" aria-hidden />
