@@ -1,6 +1,6 @@
-import { useNavigation } from "@navigation/useNavigation";
+import { useNavigation } from '@navigation/useNavigation';
 
-import { CharacterPortrait } from "./CharacterPortrait";
+import { CharacterPortrait } from './CharacterPortrait';
 
 export function Header() {
   const { page } = useNavigation();

@@ -1,6 +1,6 @@
-import type { CSSProperties } from "react";
+import type { CSSProperties } from 'react';
 
-import "./index.css";
+import './index.css';
 
 export type RoomCoordinate = {
   x: number;
@@ -12,8 +12,6 @@ export type RoomProps = {
   file: string;
   onClick?: () => void;
 };
-
-export type RoomState = "empty" | "idle" | "busy";
 
 export function Room({ coordinate, file, onClick }: RoomProps) {
   const { x, y } = coordinate;

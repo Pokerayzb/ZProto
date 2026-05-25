@@ -1,19 +1,13 @@
-import { LevelBadge } from "@components/LevelBadge";
+import { LevelBadge } from '@components/LevelBadge';
+import { useGameState } from '@game/hooks/useGameState';
 
-import avatarFrame from "./assets/big_butt_skill.png";
-import type { CharacterPortraitProps } from "./types";
+import avatarFrame from './assets/big_butt_skill.png';
 
-const prototypeCharacter: CharacterPortraitProps = {
-  name: "Captain",
-  status: "Ready",
-  level: 1,
-};
+export function CharacterPortrait() {
+  const name = useGameState((state) => state.player.name);
+  const status = useGameState((state) => state.player.status);
+  const level = useGameState((state) => state.player.level);
 
-export function CharacterPortrait({
-  name = prototypeCharacter.name,
-  status = prototypeCharacter.status,
-  level = prototypeCharacter.level,
-}: Partial<CharacterPortraitProps> = {}) {
   return (
     <div className="flex items-center gap-3 text-button-text">
       <div className="relative shrink-0 overflow-visible">
@@ -32,10 +26,10 @@ export function CharacterPortrait({
       </div>
       <div className="flex min-w-0 flex-col gap-1">
         <h2 className="m-0 truncate">{name}</h2>
-        <h3 className="m-0 truncate text-button-text/70">{status}</h3>
+        <h3 className="m-0 truncate text-button-text/70">{status || '\u00A0'}</h3>
       </div>
     </div>
   );
 }
 
-export type { CharacterPortraitProps } from "./types";
+export type { CharacterPortraitProps } from './types';

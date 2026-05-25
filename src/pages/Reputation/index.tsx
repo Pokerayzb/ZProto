@@ -1,7 +1,7 @@
-import { definePage } from "../definePage";
+import { definePage } from '../definePage';
 
-import background from "./assets/background.png";
-import icon from "./assets/icon.png";
+import background from './assets/background.png';
+import icon from './assets/icon.png';
 
 export const reputationPage = definePage({
   id: "reputation",

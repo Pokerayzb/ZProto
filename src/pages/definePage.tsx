@@ -1,6 +1,6 @@
-import { Page } from "@components/Page";
+import { Page } from '@components/Page';
 
-import type { DefinePageOptions, PageDefinition } from "./types";
+import type { DefinePageOptions, PageDefinition } from './types';
 
 export function definePage({
   id,

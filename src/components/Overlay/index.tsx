@@ -1,9 +1,9 @@
-import { Panel } from "@components/Panel";
-import { navBarPages } from "@navigation/navBar";
-import { useNavigation } from "@navigation/useNavigation";
+import { Panel } from '@components/Panel';
+import { navBarPages } from '@navigation/navBar';
+import { useNavigation } from '@navigation/useNavigation';
 
-import { Header } from "./Header";
-import { NavItem } from "./NavItem";
+import { Header } from './Header';
+import { NavItem } from './NavItem';
 
 export function Overlay() {
   const { navigate, isActive } = useNavigation();

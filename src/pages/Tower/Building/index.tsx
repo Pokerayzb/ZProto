@@ -1,17 +1,17 @@
-import { useState } from "react";
-import type { CSSProperties } from "react";
+import { useRoomStates } from '@game/hooks/useRoomStates';
+import type { CSSProperties } from 'react';
 
-import { Blacksmith } from "./rooms/Blacksmith";
-import { Carpentry } from "./rooms/Carpentry";
-import { Kitchen } from "./rooms/Kitchen";
-import type { RoomCoordinate, RoomState } from "../Room";
-import towerSkeleton from "./assets/tower.png";
-import "./index.css";
+import { Blacksmith } from './rooms/Blacksmith';
+import { Carpentry } from './rooms/Carpentry';
+import { Kitchen } from './rooms/Kitchen';
+import type { RoomCoordinate } from '../Room';
+import towerSkeleton from './assets/tower.png';
+import './index.css';
 
 type BuildingStyle = {
-  "--building-anchor-x"?: string;
-  "--building-anchor-y"?: string;
-  "--building-height"?: string;
+  '--building-anchor-x'?: string;
+  '--building-anchor-y'?: string;
+  '--building-height'?: string;
 };
 
 export type BuildingLayer = {
@@ -33,12 +33,6 @@ export type BuildingProps = {
   height?: string;
 };
 
-type BuildingRoomStates = {
-  kitchen: RoomState;
-  carpentry: RoomState;
-  blacksmith: RoomState;
-};
-
 export function Building({
   layers = [],
   roomCoordinates,
@@ -46,11 +40,7 @@ export function Building({
   anchorY,
   height,
 }: BuildingProps = {}) {
-  const [states, setStates] = useState<BuildingRoomStates>({
-    kitchen: "empty",
-    carpentry: "empty",
-    blacksmith: "empty",
-  });
+  const roomStates = useRoomStates();
 
   const coordinates: BuildingRoomCoordinates = {
     kitchen: roomCoordinates?.kitchen ?? { x: 50, y: 82 },
@@ -58,43 +48,18 @@ export function Building({
     blacksmith: roomCoordinates?.blacksmith ?? { x: 50, y: 34 },
   };
 
-  function getNextState(state: RoomState): RoomState {
-    if (state === "empty") return "idle";
-    if (state === "idle") return "busy";
-    return "empty";
-  }
-
-  function cycleRoomState(room: keyof BuildingRoomStates) {
-    setStates((current) => ({
-      ...current,
-      [room]: getNextState(current[room]),
-    }));
-  }
-
   const style: BuildingStyle = {
-    ...(anchorX !== undefined && { "--building-anchor-x": `${anchorX}%` }),
-    ...(anchorY !== undefined && { "--building-anchor-y": `${anchorY}%` }),
-    ...(height !== undefined && { "--building-height": height }),
+    ...(anchorX !== undefined && { '--building-anchor-x': `${anchorX}%` }),
+    ...(anchorY !== undefined && { '--building-anchor-y': `${anchorY}%` }),
+    ...(height !== undefined && { '--building-height': height }),
   };
 
   return (
     <div className="building" style={style as CSSProperties}>
       <div className="stack">
-        <Kitchen
-          state={states.kitchen}
-          coordinate={coordinates.kitchen}
-          onClick={() => cycleRoomState("kitchen")}
-        />
-        <Carpentry
-          state={states.carpentry}
-          coordinate={coordinates.carpentry}
-          onClick={() => cycleRoomState("carpentry")}
-        />
-        <Blacksmith
-          state={states.blacksmith}
-          coordinate={coordinates.blacksmith}
-          onClick={() => cycleRoomState("blacksmith")}
-        />
+        <Kitchen state={roomStates.kitchen} coordinate={coordinates.kitchen} />
+        <Carpentry state={roomStates.carpentry} coordinate={coordinates.carpentry} />
+        <Blacksmith state={roomStates.blacksmith} coordinate={coordinates.blacksmith} />
         <img
           className="skeleton"
           src={towerSkeleton}

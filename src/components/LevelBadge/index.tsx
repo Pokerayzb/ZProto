@@ -1,4 +1,4 @@
-import levelBadgeBg from "./dot_des.png";
+import levelBadgeBg from './dot_des.png';
 
 export type LevelBadgeSize = "normal" | "large";
 

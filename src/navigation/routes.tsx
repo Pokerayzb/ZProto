@@ -1,5 +1,5 @@
-import { pages, pagesById, pagesByPath } from "@pages/index";
-import type { PageDefinition, PageId } from "@pages/types";
+import { pages, pagesById, pagesByPath } from '@pages/index';
+import type { PageDefinition, PageId } from '@pages/types';
 
 export const DEFAULT_PAGE_ID: PageId = "tower";
 

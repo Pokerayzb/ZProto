@@ -1,8 +1,8 @@
-import type { ReactNode } from "react";
+import type { ReactNode } from 'react';
 
-import type { Layout } from "@components/shared";
+import type { Layout } from '@components/shared';
 
-import "./index.css";
+import './index.css';
 
 export interface PanelProps {
   children: ReactNode;

@@ -1,0 +1,144 @@
+---
+description: TypeScript style — methods, quotes, args, no barrels, function declarations
+globs: "**/*.{ts,tsx}"
+alwaysApply: false
+---
+
+# TypeScript standards
+
+## Imports: single quotes
+
+Always use `'` in import paths.
+
+```typescript
+/* ❌ BAD */
+import { Panel } from "@components/Panel";
+
+/* ✅ GOOD */
+import { Panel } from '@components/Panel';
+```
+
+## String literals: single quotes
+
+Use `'` for every string literal in code (props, variables, JSX text, template literals when no interpolation is needed).
+
+```typescript
+/* ❌ BAD */
+const size = "normal";
+aria-label={`Level ${level}`}  // attribute string uses "
+
+/* ✅ GOOD */
+const size = 'normal';
+aria-label={`Level ${level}`}  // template OK when interpolating
+```
+
+## Class names: PascalCase
+
+Class names always start with a capital letter.
+
+```typescript
+/* ❌ BAD */
+class navigationService {}
+
+/* ✅ GOOD */
+class NavigationService {}
+```
+
+## Class methods: normal syntax
+
+Never assign methods as arrow-function properties. Use standard method syntax.
+
+```typescript
+/* ❌ BAD */
+class TowerState {
+  tick = () => {
+    this.advance();
+  };
+}
+
+/* ✅ GOOD */
+class TowerState {
+  tick() {
+    this.advance();
+  }
+}
+```
+
+## Functions: declarations, not expressions
+
+Define named functions with `function` declarations. Do not assign them to `const`/`let` as function or arrow expressions.
+
+This applies to module-level helpers, exports, and component functions. Inline callbacks (e.g. `onClick`, `.map`) may stay as short arrow functions.
+
+```typescript
+/* ❌ BAD */
+const formatLevel = (level: number) => `${level}`;
+export const LevelBadge = ({ level }: Props) => <span>{level}</span>;
+
+/* ✅ GOOD */
+function formatLevel(level: number) {
+  return `${level}`;
+}
+
+export function LevelBadge({ level }: Props) {
+  return <span>{level}</span>;
+}
+```
+
+## Function arguments: positional first
+
+Prefer individual parameters over a single options/props object. Use one object parameter only when there are **five or more** arguments.
+
+```typescript
+/* ❌ BAD — object wraps few arguments */
+function placeRoom(options: { floor: number; slot: number; type: RoomType }) {
+  const { floor, slot, type } = options;
+}
+
+function formatLabel(options: { text: string; bold: boolean }) {
+  return options.text;
+}
+
+/* ✅ GOOD */
+function placeRoom(floor: number, slot: number, type: RoomType) {
+  // …
+}
+
+function formatLabel(text: string, bold: boolean) {
+  return text;
+}
+
+/* ✅ GOOD — five or more, object is OK */
+function configureTower(options: {
+  height: number;
+  width: number;
+  floors: number;
+  theme: string;
+  unlocked: boolean;
+}) {
+  // …
+}
+```
+
+**React components:** JSX always passes one props object at the call site. Destructuring `{ level, size }` in the component signature is fine. Apply this rule to helpers, services, hooks' internal logic, and any function you call directly — do not wrap those calls in a single object when fewer than five values are needed.
+
+## No barrel exports or re-exports
+
+Import from the module that **defines** the symbol. Do not add `index.ts` files whose only job is re-exporting from sibling files.
+
+```typescript
+/* ❌ BAD — barrel file (navigation/index.ts) */
+export { useNavigation } from './useNavigation';
+export { NavigationProvider } from './NavigationProvider';
+
+/* ❌ BAD — re-export from another module */
+export { definePage } from './definePage';
+export type { PageId } from './types';
+
+/* ✅ GOOD — import from the defining file */
+import { useNavigation } from '@navigation/useNavigation';
+import { definePage } from '@pages/definePage';
+import type { PageId } from '@pages/types';
+```
+
+**Allowed:** a component's `index.tsx` as its own entry point (implementation lives there). A module may export symbols defined **in that same file** (e.g. a registry built from direct imports), but must not re-export symbols from elsewhere.

@@ -1,8 +1,8 @@
-import type { ButtonHTMLAttributes, ReactNode } from "react";
+import type { ButtonHTMLAttributes, ReactNode } from 'react';
 
-import type { Layout } from "@components/shared";
+import type { Layout } from '@components/shared';
 
-import "./index.css";
+import './index.css';
 
 export interface ButtonProps
   extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children" | "className"> {

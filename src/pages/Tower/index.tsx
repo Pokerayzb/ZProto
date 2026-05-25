@@ -1,8 +1,8 @@
-import { Building } from "./Building";
-import { definePage } from "../definePage";
+import { Building } from './Building';
+import { definePage } from '../definePage';
 
-import background from "./assets/background.png";
-import icon from "./assets/icon.png";
+import background from './assets/background.png';
+import icon from './assets/icon.png';
 
 export const towerPage = definePage({
   id: "tower",

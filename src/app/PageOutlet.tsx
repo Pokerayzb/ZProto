@@ -1,4 +1,4 @@
-import { useNavigation } from "@navigation/useNavigation";
+import { useNavigation } from '@navigation/useNavigation';
 
 export function PageOutlet() {
   const { page } = useNavigation();

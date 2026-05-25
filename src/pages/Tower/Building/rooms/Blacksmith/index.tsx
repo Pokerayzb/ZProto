@@ -1,8 +1,11 @@
-import { Room } from "../../../Room";
-import type { RoomCoordinate, RoomState } from "../../../Room";
-import busy from "./assets/busy.png";
-import empty from "./assets/empty.png";
-import idle from "./assets/idle.png";
+import { roomAssetKey } from '@game/selectors/rooms';
+import type { RoomVisualState } from '@game/selectors/rooms';
+
+import { Room } from '../../../Room';
+import type { RoomCoordinate } from '../../../Room';
+import busy from './assets/busy.png';
+import empty from './assets/empty.png';
+import idle from './assets/idle.png';
 
 const files = {
   empty,
@@ -15,14 +18,14 @@ export function Blacksmith({
   coordinate,
   onClick,
 }: {
-  state: RoomState;
+  state: RoomVisualState;
   coordinate: RoomCoordinate;
   onClick?: () => void;
 }) {
   return (
     <Room
       coordinate={coordinate}
-      file={files[state]}
+      file={files[roomAssetKey(state)]}
       {...(onClick !== undefined && { onClick })}
     />
   );

@@ -5,12 +5,12 @@ import {
   useMemo,
   useState,
   type ReactNode,
-} from "react";
+} from 'react';
 
-import { pagesById, pagesByPath } from "@pages/index";
+import { pagesById, pagesByPath } from '@pages/index';
 
-import { DEFAULT_PAGE_ID } from "./routes";
-import type { PageDefinition, PageId } from "./types";
+import { DEFAULT_PAGE_ID } from './routes';
+import type { PageDefinition, PageId } from './types';
 
 export interface NavigationContextValue {
   pageId: PageId;
