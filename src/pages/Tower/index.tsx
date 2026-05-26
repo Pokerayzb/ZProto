@@ -7,7 +7,7 @@ import icon from './assets/icon.png';
 export const towerPage = definePage({
   id: "tower",
   path: "/tower",
-  title: "Башня",
+  title: "Tower",
   icon,
   background,
   children: (

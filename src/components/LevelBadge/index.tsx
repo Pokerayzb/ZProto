@@ -1,26 +1,26 @@
+import type { Size } from '@components/shared';
 import type { LevelProgress } from '@game/state/types';
 
 import levelBadgeBg from './dot_des.png';
 
-export type LevelBadgeSize = "normal" | "large";
-
 export interface LevelBadgeProps {
   level: LevelProgress;
-  size?: LevelBadgeSize;
+  size?: Size;
   className?: string;
 }
 
-const sizeClasses: Record<
-  LevelBadgeSize,
-  { container: string; label: string }
-> = {
+const sizeClasses: Record<Size, { container: string; label: string }> = {
+  small: {
+    container: 'size-8',
+    label: 'text-xs font-semibold',
+  },
   normal: {
-    container: "size-10",
-    label: "text-sm font-semibold",
+    container: 'size-10',
+    label: 'text-sm font-semibold',
   },
   large: {
-    container: "size-12",
-    label: "text-xl font-semibold",
+    container: 'size-12',
+    label: 'text-xl font-semibold',
   },
 };
 

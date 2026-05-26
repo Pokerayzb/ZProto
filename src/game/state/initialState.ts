@@ -17,7 +17,7 @@ export function createInitialState(): GameState {
     },
     inventory: {},
     professions: {
-      blacksmithing: { skills: {} },
+      blacksmithing: { skills: { } },
       cooking: { skills: {} },
       carpentry: { skills: {} },
     },

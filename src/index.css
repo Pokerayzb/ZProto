@@ -6,8 +6,22 @@
   --color-app-bg: #070b12;
   --color-button-bg: #002128;
   --color-button-text: #c9b36c;
+  --color-accent-cyan: #12a0c0;
+  --color-label-parchment: color-mix(in srgb, var(--color-button-text) 25%, white);
+  --color-book-page: #f0e6d2;
+  --color-book-label: #3a1e00;
+
+  --color-surface-teal-top: color-mix(in srgb, var(--color-button-bg) 55%, white 8%);
+  --color-surface-teal-mid: var(--color-button-bg);
+  --color-surface-teal-bottom: color-mix(in srgb, var(--color-button-bg) 88%, black);
+  --color-surface-teal-groove-top: color-mix(in srgb, var(--color-button-bg) 94%, black);
+  --color-surface-teal-groove-mid: color-mix(in srgb, var(--color-button-bg) 86%, black);
+  --color-surface-teal-groove-bottom: color-mix(in srgb, var(--color-button-bg) 92%, black);
 
   --spacing-icon: 64px;
+  --spacing-progress-bar-sm: 1.125rem;
+  --spacing-progress-bar-md: 1.375rem;
+  --spacing-progress-bar-lg: 1.875rem;
 }
 
 :root {
@@ -17,6 +31,10 @@
   --button-gap: 20px;
   --tower-height: 72%;
   --tower-room-width: 50%;
+  --color-book-label: #3a1e00;
+  --book-inset-top: 13.5rem;
+  --book-inset-x: 1.25rem;
+  --book-inset-bottom: 5.5rem;
 }
 
 @layer base {

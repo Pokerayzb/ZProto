@@ -1,0 +1,72 @@
+.progressbar {
+  --color-progress-fill-top: color-mix(in srgb, var(--color-accent-cyan) 45%, white);
+  --color-progress-fill-upper: color-mix(in srgb, var(--color-accent-cyan) 64%, white);
+  --color-progress-fill-mid: color-mix(in srgb, var(--color-accent-cyan) 87%, white);
+  --color-progress-fill-lower: var(--color-accent-cyan);
+  --color-progress-fill-bottom: color-mix(in srgb, var(--color-accent-cyan) 78%, black);
+  --color-progress-border: color-mix(in srgb, var(--color-button-text) 62%, transparent);
+  --color-progress-border-highlight: color-mix(in srgb, var(--color-button-text) 18%, transparent);
+  --color-progress-glow: color-mix(in srgb, var(--color-button-text) 42%, transparent);
+  --color-progress-glow-cyan: color-mix(in srgb, var(--color-accent-cyan) 28%, transparent);
+}
+
+.progressbar > .track {
+  background: linear-gradient(
+    180deg,
+    var(--color-surface-teal-top) 0%,
+    var(--color-surface-teal-mid) 52%,
+    var(--color-surface-teal-bottom) 100%
+  );
+  box-shadow:
+    inset 0 0 0 1px var(--color-progress-border),
+    inset 0 1px 0 var(--color-progress-border-highlight),
+    inset 0 -1px 0 rgb(0 0 0 / 35%),
+    0 1px 2px rgb(0 0 0 / 35%);
+}
+
+.progressbar > .track > .groove {
+  background: linear-gradient(
+    180deg,
+    var(--color-surface-teal-groove-top) 0%,
+    var(--color-surface-teal-groove-mid) 48%,
+    var(--color-surface-teal-groove-bottom) 100%
+  );
+  box-shadow:
+    inset 0 2px 5px rgb(0 0 0 / 58%),
+    inset 0 0 0 1px rgb(0 0 0 / 42%);
+}
+
+.progressbar > .track > .groove > .fill {
+  background: linear-gradient(
+    180deg,
+    var(--color-progress-fill-top) 0%,
+    var(--color-progress-fill-upper) 16%,
+    var(--color-progress-fill-mid) 42%,
+    var(--color-progress-fill-lower) 68%,
+    var(--color-progress-fill-bottom) 100%
+  );
+  box-shadow:
+    0 0 14px var(--color-progress-glow),
+    0 0 4px var(--color-progress-glow-cyan),
+    inset 0 1px 0 rgb(255 255 255 / 58%),
+    inset 0 -1px 0 color-mix(in srgb, var(--color-progress-fill-bottom) 35%, black);
+}
+
+.progressbar > .track > .groove > .fill::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgb(255 255 255 / 28%) 48%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+.progressbar > .label {
+  text-shadow:
+    0 1px 0 rgb(0 0 0 / 55%),
+    0 0 8px rgb(0 0 0 / 25%);
+}
