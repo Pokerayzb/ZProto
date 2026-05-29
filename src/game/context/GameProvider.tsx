@@ -4,7 +4,9 @@ import { GameContext } from '@game/context/GameContext';
 import { createEngine } from '@game/engine/createEngine';
 import { Award } from '@game/events/Award';
 import type { GameEvent } from '@game/events/GameEvent';
-import { SAVE_INTERVAL_MS, saveState } from '@game/persist/storage';
+import { saveState } from '@game/persist/storage';
+
+const storageInterval = 5000;
 
 export interface GameProviderProps {
   children: ReactNode;
@@ -18,7 +20,7 @@ export function GameProvider({ children }: GameProviderProps) {
 
     const saveIntervalId = setInterval(() => {
       saveState(engine.getState());
-    }, SAVE_INTERVAL_MS);
+    }, storageInterval);
 
     if (import.meta.env.DEV) {
       window.__zproto = {

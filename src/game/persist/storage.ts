@@ -1,21 +1,14 @@
 import { createInitialState } from '@game/state/initialState';
 import type { GameState } from '@game/state/types';
 
-export const SAVE_VERSION = 1;
+import type { SaveBlob } from './type';
+import { migrate, version } from './migration';
 
-export const STORAGE_KEY = 'zproto:game';
-
-export const SAVE_INTERVAL_MS = 5000;
-
-export type SaveBlob = {
-  version: number;
-  state: GameState;
-};
+const storageKey = 'zproto:game';
 
 function isGameState(value: unknown): value is GameState {
-  if (typeof value !== 'object' || value === null) {
+  if (typeof value !== 'object' || value === null)
     return false;
-  }
 
   const state = value as GameState;
 
@@ -60,32 +53,29 @@ function normalizeLoadedState(state: GameState): GameState {
 }
 
 export function saveState(state: GameState): void {
-  const blob: SaveBlob = {
-    version: SAVE_VERSION,
-    state,
-  };
-
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(blob));
+  localStorage.setItem(
+    storageKey,
+    JSON.stringify({ state, version } satisfies SaveBlob)
+  );
 }
 
 export function loadState(): GameState | null {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw === null) {
+    const raw = localStorage.getItem(storageKey);
+    if (raw === null)
       return null;
-    }
 
-    const blob = JSON.parse(raw) as SaveBlob;
-    if (blob.version !== SAVE_VERSION || !isGameState(blob.state)) {
+    const blob = JSON.parse(raw);
+    const state = migrate(blob);
+    if (!state || !isGameState(state))
       return null;
-    }
 
-    return normalizeLoadedState(blob.state);
+    return normalizeLoadedState(state);
   } catch {
     return null;
   }
 }
 
 export function clearSavedState(): void {
-  localStorage.removeItem(STORAGE_KEY);
+  localStorage.removeItem(storageKey);
 }

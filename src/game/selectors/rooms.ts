@@ -1,7 +1,7 @@
 import type { GameLibrary } from '@game/library/types';
 import type { GameState, ProfessionId } from '@game/state/types';
 
-export type RoomId = 'blacksmith' | 'kitchen' | 'carpentry';
+export type RoomId = 'blacksmith' | 'kitchen' | 'carpentry' | 'forest' | 'mine' | 'river';
 
 export type RoomVisualState = 'empty' | 'full' | 'busy';
 
@@ -11,9 +11,12 @@ const PROFESSION_TO_ROOM: Record<ProfessionId, RoomId> = {
   blacksmithing: 'blacksmith',
   cooking: 'kitchen',
   carpentry: 'carpentry',
+  forest: 'forest',
+  mine: 'mine',
+  river: 'river',
 };
 
-const ROOM_IDS: RoomId[] = ['blacksmith', 'kitchen', 'carpentry'];
+const ROOM_IDS: RoomId[] = ['blacksmith', 'kitchen', 'carpentry', 'forest', 'mine', 'river'];
 
 function hasLearnedSkill(state: GameState, professionId: ProfessionId): boolean {
   return Object.keys(state.professions[professionId].skills).length > 0;

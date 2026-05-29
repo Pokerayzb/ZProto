@@ -12,7 +12,7 @@ export type Player = {
   reputation: Record<FactionId, number>;
 };
 
-export type ProfessionId = 'blacksmithing' | 'cooking' | 'carpentry';
+export type ProfessionId = 'blacksmithing' | 'cooking' | 'carpentry' | 'forest' | 'mine' | 'river';
 
 export type PlayerProfession = {
   skills: Partial<Record<string, LevelProgress>>;

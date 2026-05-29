@@ -5,6 +5,10 @@ export type ProfessionType = 'gathering' | 'craft';
 export type LibraryProfession = {
   id: ProfessionId;
   type: ProfessionType;
+  title: string;
+  workshop: {
+    title: string;
+  };
 };
 
 export type Ingredient = {
