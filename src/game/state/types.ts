@@ -14,8 +14,17 @@ export type Player = {
 
 export type ProfessionId = 'blacksmithing' | 'cooking' | 'carpentry' | 'forest' | 'mine' | 'river';
 
+export type PlayerSkill = {
+  applications: number;
+  favorite: boolean;
+};
+
 export type PlayerProfession = {
-  skills: Partial<Record<string, LevelProgress>>;
+  level: LevelProgress;
+  skillPoints: number;
+  skills: Partial<Record<string, PlayerSkill>>;
+  taskQueue: TaskQueue;
+  currentTask: CurrentTask | null;
 };
 
 export type PlayerProfessions = Record<ProfessionId, PlayerProfession>;
@@ -39,8 +48,6 @@ export type GameState = {
   player: Player;
   inventory: Inventory;
   professions: PlayerProfessions;
-  taskQueue: TaskQueue;
-  currentTask: CurrentTask | null;
   nextQueueId: number;
   lastTickAt: number;
 };

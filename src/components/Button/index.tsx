@@ -19,7 +19,7 @@ export function Button({
   ...rest
 }: ButtonProps) {
   const classes =
-    'button ' +
+    'button asset-frame ' +
     layout +
     (active ? ' active' : '') +
     (className ? ' ' + className : '');

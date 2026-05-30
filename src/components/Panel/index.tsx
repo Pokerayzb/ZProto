@@ -15,7 +15,7 @@ export function Panel({
   layout = 'horizontal',
   className,
 }: PanelProps) {
-  const classes = 'panel ' + layout + (className ? ' ' + className : '');
+  const classes = 'panel asset-frame ' + layout + (className ? ' ' + className : '');
 
   return (
     <div className={classes}>

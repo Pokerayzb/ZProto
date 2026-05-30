@@ -1,0 +1,16 @@
+---
+description: Ban arbitrary visual magic numbers; fix root cause
+alwaysApply: true
+---
+
+# No Magic Visual Fixes
+
+- Never fix clipping/alignment/overflow with arbitrary one-off numbers (for example random padding/margin/offset values).
+- Do not introduce unexplained values like `0.12em`, `3px`, `-1px` unless they come from a documented design token or asset geometry.
+- First identify the real cause: line-height, overflow axis, font metrics, text container sizing, vertical alignment, or parent clipping.
+- Prefer structural fixes:
+  - correct overflow axis (`overflow-x` vs `overflow-y`)
+  - proper line-height/leading classes
+  - container sizing/layout fixes
+  - shared tokens in `src/index.css` when truly global
+- If a non-obvious numeric value is required, document why it is correct and where it comes from.

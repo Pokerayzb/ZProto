@@ -1,0 +1,22 @@
+.recipe[role="button"] {
+  cursor: pointer;
+}
+
+.recipe[aria-disabled="true"] {
+  cursor: default;
+}
+
+.recipe > .content > .favorite {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.recipe > .content > .favorite:disabled {
+  cursor: default;
+}
+
+.recipe > .content > .favorite > .star {
+  display: block;
+}

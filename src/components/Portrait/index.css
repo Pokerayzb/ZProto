@@ -1,0 +1,19 @@
+/*
+ * Portrait icon placement is derived from big_butt_skill.png frame geometry.
+ */
+.portrait .portrait-icon-wrap {
+  position: absolute;
+  top: 5.5%;
+  left: 50%;
+  width: 80%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  transform: translateX(-50%);
+}
+
+.portrait.character-portrait {
+  width: 10rem;
+  aspect-ratio: 1;
+  height: auto;
+}

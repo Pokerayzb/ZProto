@@ -27,21 +27,21 @@ const sizeClasses: Record<
     vertical: 'w-progress-bar-sm min-w-progress-bar-sm',
     grooveHorizontal: 'inset-x-0.5 inset-y-px',
     grooveVertical: 'inset-x-px inset-y-0.5',
-    label: 'px-2 py-0.5 text-[0.625rem] leading-none',
+    label: 'px-2 py-px text-[0.625rem] leading-snug',
   },
   normal: {
     horizontal: 'h-progress-bar-md min-h-progress-bar-md',
     vertical: 'w-progress-bar-md min-w-progress-bar-md',
     grooveHorizontal: 'inset-x-[3px] inset-y-0.5',
     grooveVertical: 'inset-x-0.5 inset-y-[3px]',
-    label: 'px-3.5 py-1.5 text-xs leading-none',
+    label: 'px-3.5 py-1 text-xs leading-snug',
   },
   large: {
     horizontal: 'h-progress-bar-lg min-h-progress-bar-lg',
     vertical: 'w-progress-bar-lg min-w-progress-bar-lg',
     grooveHorizontal: 'inset-x-1 inset-y-[3px]',
     grooveVertical: 'inset-x-[3px] inset-y-1',
-    label: 'px-4 py-1.5 text-sm leading-none',
+    label: 'px-4 py-1 text-sm leading-snug',
   },
 };
 
@@ -82,7 +82,7 @@ export function ProgressBar({
       ? 'top-0 left-0 h-full'
       : 'right-0 bottom-0 left-0';
   const rootClasses =
-    'progressbar relative isolate grid min-h-0 min-w-0 place-items-center overflow-hidden rounded-full ' +
+    'progressbar relative isolate grid min-h-0 min-w-0 place-items-center rounded-full ' +
     layout +
     ' ' +
     size +
@@ -120,7 +120,7 @@ export function ProgressBar({
       {label !== undefined ? (
         <div
           className={
-            'label relative z-1 box-border w-full text-center font-bold whitespace-nowrap text-label-parchment ' +
+            'label relative z-1 box-border w-full text-center font-bold whitespace-nowrap ' +
             classes.label
           }
         >

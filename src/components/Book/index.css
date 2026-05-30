@@ -1,41 +1,29 @@
 .book {
-  --book-cover: color-mix(in srgb, var(--color-book-label) 72%, black);
-  --book-cover-highlight: color-mix(in srgb, var(--color-book-label) 38%, white 14%);
-  --book-page-edge: color-mix(in srgb, var(--color-book-page) 76%, var(--color-book-label));
-
-  box-sizing: border-box;
-  height: 100%;
-  width: 100%;
-  min-height: 0;
-  min-width: 0;
   padding: 0.5rem 0.625rem 0.5rem 0.875rem;
+  border: 3px solid color-mix(in srgb, var(--color-book-cover) 55%, black);
   border-radius: 1.25rem;
-  background: linear-gradient(
-    145deg,
-    var(--book-cover-highlight) 0%,
-    var(--book-cover) 44%,
-    color-mix(in srgb, var(--book-cover) 86%, black) 100%
-  );
+  background: var(--color-book-cover);
   box-shadow:
-    0 6px 20px rgb(0 0 0 / 0.34),
-    inset 0 1px 0 color-mix(in srgb, white 16%, transparent),
-    inset 0 -1px 0 rgb(0 0 0 / 0.3);
+    inset 0 1px 0 color-mix(in srgb, var(--color-book-cover) 35%, white 12%),
+    0 2px 6px color-mix(in srgb, var(--color-book-cover) 70%, black);
 }
 
 .book > .page {
-  height: 100%;
-  min-height: 0;
   border-radius: 0.875rem;
-  background: var(--color-book-page);
-  overflow: hidden;
-  box-shadow:
-    inset 0 0 0 1px var(--book-page-edge),
-    inset 0 0 0 2px color-mix(in srgb, var(--color-book-page) 90%, white),
-    inset 6px 0 16px rgb(58 30 0 / 0.12);
 }
 
-.book > .page > .inner {
-  height: 100%;
-  min-height: 0;
-  color: var(--color-book-label);
+.book-tabs {
+  margin-bottom: calc(var(--book-tab-overlap) * -1);
+}
+
+.book-tab {
+  aspect-ratio: var(--book-tab-aspect-ratio);
+  max-width: var(--book-tab-max-width);
+  border: 0;
+  outline: none;
+  background-color: transparent;
+  background-image: var(--book-tab-bg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }

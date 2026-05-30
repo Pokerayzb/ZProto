@@ -7,21 +7,24 @@
   --color-button-bg: #002128;
   --color-button-text: #c9b36c;
   --color-accent-cyan: #12a0c0;
-  --color-label-parchment: color-mix(in srgb, var(--color-button-text) 25%, white);
-  --color-book-page: #f0e6d2;
-  --color-book-label: #3a1e00;
+  --color-page-bg: #f0e6d2;
+  --color-page-text: color-mix(in srgb, var(--color-button-bg) 72%, black);
+  --color-progress-label: #e8dcc0;
+  --color-book-cover: #352218;
+  --color-surface-elevated: color-mix(in srgb, var(--color-page-bg) 35%, white);
+  --color-border-muted: color-mix(in srgb, var(--color-button-text) 25%, transparent);
+  --color-border-subtle: color-mix(in srgb, var(--color-page-text) 20%, transparent);
+  --color-shadow: color-mix(in srgb, black 35%, transparent);
+  --color-shadow-deep: color-mix(in srgb, black 58%, transparent);
+  --color-highlight: color-mix(in srgb, white 58%, transparent);
+  --color-highlight-soft: color-mix(in srgb, white 28%, transparent);
 
-  --color-surface-teal-top: color-mix(in srgb, var(--color-button-bg) 55%, white 8%);
-  --color-surface-teal-mid: var(--color-button-bg);
-  --color-surface-teal-bottom: color-mix(in srgb, var(--color-button-bg) 88%, black);
-  --color-surface-teal-groove-top: color-mix(in srgb, var(--color-button-bg) 94%, black);
-  --color-surface-teal-groove-mid: color-mix(in srgb, var(--color-button-bg) 86%, black);
-  --color-surface-teal-groove-bottom: color-mix(in srgb, var(--color-button-bg) 92%, black);
+  --opacity-disabled: 0.65;
 
   --spacing-icon: 64px;
-  --spacing-progress-bar-sm: 1.125rem;
-  --spacing-progress-bar-md: 1.375rem;
-  --spacing-progress-bar-lg: 1.875rem;
+  --spacing-progress-bar-sm: 1.3125rem;
+  --spacing-progress-bar-md: 1.5rem;
+  --spacing-progress-bar-lg: 2rem;
 }
 
 :root {
@@ -31,10 +34,71 @@
   --button-gap: 20px;
   --tower-height: 72%;
   --tower-room-width: 50%;
-  --color-book-label: #3a1e00;
-  --book-inset-top: 13.5rem;
+  --book-inset-top: 11rem;
   --book-inset-x: 1.25rem;
-  --book-inset-bottom: 5.5rem;
+  --book-inset-bottom: 8rem;
+  --book-max-width: 84rem;
+  --book-scroll-list-gap: 0.75rem;
+  --book-scroll-list-py: 0.25rem;
+  --book-scroll-list-pr: 0.25rem;
+  --book-tab-overlap: 6px;
+  --book-tab-aspect-ratio: 258 / 59;
+  --book-tab-max-width: 260px;
+  --creation-create-max-width: 7.5rem;
+}
+
+@layer utilities {
+  /*
+   * Truncated labels should use font-native line-height.
+   * Tight leading with some fonts clips descenders (g, y, p, q).
+   */
+  .truncate {
+    line-height: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .book-scroll-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--book-scroll-list-gap);
+    padding-top: var(--book-scroll-list-py);
+    padding-bottom: var(--book-scroll-list-py);
+    padding-right: var(--book-scroll-list-pr);
+  }
+
+  .icon-slot {
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--color-button-text);
+    background: var(--color-surface-elevated);
+  }
+
+  .page-surface {
+    background: var(--color-page-bg);
+    color: var(--color-page-text);
+  }
+
+  .control-surface {
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 0.25rem;
+    background: color-mix(in srgb, var(--color-page-text) 6%, var(--color-page-bg));
+    color: var(--color-page-text);
+  }
+
+  .disabled {
+    opacity: var(--opacity-disabled);
+    cursor: not-allowed;
+  }
+
+  .task-progress-fill {
+    height: 100%;
+    border-radius: 9999px;
+    background: var(--color-accent-cyan);
+    box-shadow: 0 0 8px color-mix(in srgb, var(--color-accent-cyan) 50%, transparent);
+    transition: width 75ms;
+  }
 }
 
 @layer base {

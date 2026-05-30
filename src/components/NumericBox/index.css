@@ -1,0 +1,40 @@
+.numeric-box > .stepper > .step {
+  border-color: color-mix(in srgb, var(--color-page-text) 25%, transparent);
+  background: color-mix(in srgb, var(--color-page-text) 8%, var(--color-page-bg));
+  transition: background-color 120ms, border-color 120ms;
+}
+
+.numeric-box > .stepper > .step:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--color-page-text) 14%, var(--color-page-bg));
+  border-color: color-mix(in srgb, var(--color-page-text) 40%, transparent);
+}
+
+.numeric-box > .stepper > .value:focus {
+  outline: 2px solid color-mix(in srgb, var(--color-accent-cyan) 55%, transparent);
+  outline-offset: 1px;
+}
+
+.numeric-box > .stepper > .value::-webkit-outer-spin-button,
+.numeric-box > .stepper > .value::-webkit-inner-spin-button {
+  margin: 0;
+  appearance: none;
+}
+
+.numeric-box > .stepper > .value {
+  appearance: textfield;
+}
+
+.numeric-box > .presets > .preset {
+  transition: background-color 120ms, border-color 120ms;
+}
+
+.numeric-box > .presets > .preset:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--color-page-text) 12%, var(--color-page-bg));
+  border-color: color-mix(in srgb, var(--color-page-text) 35%, transparent);
+}
+
+.numeric-box > .presets > .preset.active {
+  border-color: color-mix(in srgb, var(--color-accent-cyan) 65%, transparent);
+  background: color-mix(in srgb, var(--color-accent-cyan) 12%, var(--color-page-bg));
+  color: color-mix(in srgb, var(--color-accent-cyan) 85%, var(--color-page-text));
+}

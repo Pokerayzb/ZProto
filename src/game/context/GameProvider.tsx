@@ -3,6 +3,7 @@ import { useEffect, useMemo, type ReactNode } from 'react';
 import { GameContext } from '@game/context/GameContext';
 import { createEngine } from '@game/engine/createEngine';
 import { Award } from '@game/events/Award';
+import { LearnSkill } from '@game/events/LearnSkill';
 import type { GameEvent } from '@game/events/GameEvent';
 import { saveState } from '@game/persist/storage';
 
@@ -29,6 +30,7 @@ export function GameProvider({ children }: GameProviderProps) {
         },
         getState: () => engine.getState(),
         Award,
+        LearnSkill,
       };
     }
 

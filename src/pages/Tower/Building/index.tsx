@@ -1,4 +1,6 @@
 import { useRoomStates } from '@game/hooks/useRoomStates';
+import { getProfessionId, type RoomId } from '@game/selectors/rooms';
+import { useNavigation } from '@navigation/useNavigation';
 import type { CSSProperties } from 'react';
 
 import { Blacksmith } from './rooms/Blacksmith';
@@ -40,7 +42,12 @@ export function Building({
   anchorY,
   height,
 }: BuildingProps = {}) {
+  const { navigate } = useNavigation();
   const roomStates = useRoomStates();
+
+  function handleRoomClick(roomId: RoomId) {
+    navigate('craft', { professionId: getProfessionId(roomId) });
+  }
 
   const coordinates: BuildingRoomCoordinates = {
     kitchen: roomCoordinates?.kitchen ?? { x: 50, y: 82 },
@@ -57,9 +64,21 @@ export function Building({
   return (
     <div className="building" style={style as CSSProperties}>
       <div className="stack">
-        <Kitchen state={roomStates.kitchen} coordinate={coordinates.kitchen} />
-        <Carpentry state={roomStates.carpentry} coordinate={coordinates.carpentry} />
-        <Blacksmith state={roomStates.blacksmith} coordinate={coordinates.blacksmith} />
+        <Kitchen
+          state={roomStates.kitchen}
+          coordinate={coordinates.kitchen}
+          onClick={() => handleRoomClick('kitchen')}
+        />
+        <Carpentry
+          state={roomStates.carpentry}
+          coordinate={coordinates.carpentry}
+          onClick={() => handleRoomClick('carpentry')}
+        />
+        <Blacksmith
+          state={roomStates.blacksmith}
+          coordinate={coordinates.blacksmith}
+          onClick={() => handleRoomClick('blacksmith')}
+        />
         <img
           className="skeleton"
           src={towerSkeleton}

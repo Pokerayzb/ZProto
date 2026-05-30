@@ -15,7 +15,7 @@ export function Header({ className }: HeaderProps = {}) {
 
   return (
     <div className={classes}>
-      <div className="flex w-full items-center gap-4 px-6 pt-4">
+      <div className="pointer-events-auto flex w-full items-center gap-4 px-6 pt-4">
         <div className="shrink-0">
           <CharacterPortrait />
         </div>

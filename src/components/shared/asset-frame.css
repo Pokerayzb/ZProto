@@ -1,0 +1,86 @@
+/*
+ * Shared 9-slice asset frame used by Button and Panel.
+ * Set --af-c, --af-e, --af-tl/tr/bl/br/t/b/l/r on the block root.
+ */
+.asset-frame {
+  --af-overlap: calc(75px * var(--frame-scale));
+
+  display: grid;
+  grid-template:
+    "tl t tr" var(--af-c)
+    "l  c r" 1fr
+    "bl b br" var(--af-c)
+    / var(--af-c) 1fr var(--af-c);
+  width: fit-content;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.asset-frame > span {
+  display: block;
+  min-width: 0;
+  min-height: 0;
+}
+
+.asset-frame > .tl,
+.asset-frame > .tr,
+.asset-frame > .bl,
+.asset-frame > .br {
+  background-repeat: no-repeat;
+  background-size: var(--af-c) var(--af-c);
+}
+
+.asset-frame > .tl {
+  grid-area: tl;
+  background-image: var(--af-tl);
+}
+
+.asset-frame > .tr {
+  grid-area: tr;
+  background-image: var(--af-tr);
+}
+
+.asset-frame > .bl {
+  grid-area: bl;
+  background-image: var(--af-bl);
+}
+
+.asset-frame > .br {
+  grid-area: br;
+  background-image: var(--af-br);
+}
+
+.asset-frame > .t {
+  grid-area: t;
+  background: var(--af-t) repeat-x left top / var(--af-e) var(--af-c), var(--color-button-bg);
+}
+
+.asset-frame > .b {
+  grid-area: b;
+  background: var(--af-b) repeat-x left bottom / var(--af-e) var(--af-c), var(--color-button-bg);
+}
+
+.asset-frame > .l {
+  grid-area: l;
+  background: var(--af-l) repeat-y left top / var(--af-c) var(--af-e), var(--color-button-bg);
+}
+
+.asset-frame > .r {
+  grid-area: r;
+  background: var(--af-r) repeat-y right top / var(--af-c) var(--af-e), var(--color-button-bg);
+}
+
+.asset-frame > .content {
+  grid-area: c;
+  position: relative;
+  place-self: stretch;
+  min-width: 0;
+  min-height: 0;
+  margin: calc(var(--af-overlap) * -1);
+}
+
+.asset-frame > .content > .background {
+  position: absolute;
+  inset: var(--af-overlap);
+  background: var(--color-button-bg);
+}

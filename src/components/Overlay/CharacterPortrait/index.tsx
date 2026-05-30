@@ -1,9 +1,8 @@
 import { LevelBadge } from '@components/LevelBadge';
 import { ProgressBar } from '@components/ProgressBar';
 import { CoinBadge } from '@components/Overlay/CoinBadge';
+import { Portrait } from '@components/Portrait';
 import { useGameState } from '@game/hooks/useGameState';
-
-import avatarFrame from './assets/big_butt_skill.png';
 
 import type { CharacterPortraitProps } from './types';
 
@@ -21,20 +20,11 @@ export function CharacterPortrait({ className }: CharacterPortraitProps = {}) {
 
   return (
     <div className={classes}>
-      <div className="relative shrink-0 overflow-visible">
-        <div className="relative h-40">
-          <div className="absolute bottom-0 right-0 z-2">
-            <LevelBadge level={level} size="large" />
-          </div>
-          <img
-            className="relative z-1 size-full object-contain pointer-events-none"
-            src={avatarFrame}
-            alt=""
-            aria-hidden
-            decoding="async"
-          />
+      <Portrait className="character-portrait">
+        <div className="absolute bottom-0 right-0 z-2">
+          <LevelBadge level={level} size="large" />
         </div>
-      </div>
+      </Portrait>
       <div className="flex items-center gap-4">
         <div className="flex min-w-0 flex-col gap-1.5">
           <h1 className="m-0 whitespace-nowrap">{name}</h1>

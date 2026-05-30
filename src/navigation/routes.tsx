@@ -1,7 +1,9 @@
 import { pages, pagesById, pagesByPath } from '@pages/index';
 import type { PageDefinition, PageId } from '@pages/types';
 
-export const DEFAULT_PAGE_ID: PageId = "tower";
+import { DEFAULT_PAGE_ID } from './constants';
+
+export { DEFAULT_PAGE_ID } from './constants';
 
 export const routes = pages;
 

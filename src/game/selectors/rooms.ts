@@ -43,8 +43,10 @@ export function getRoomState(
     return 'empty';
   }
 
-  if (state.currentTask !== null) {
-    const skill = library.skills[state.currentTask.skillId];
+  const profession = state.professions[professionId];
+
+  if (profession.currentTask !== null) {
+    const skill = library.skills[profession.currentTask.skillId];
     if (skill !== undefined && skill.professionId === professionId) {
       return 'busy';
     }

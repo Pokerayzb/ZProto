@@ -1,0 +1,94 @@
+.frame {
+  --frame-corner: 1rem;
+  --frame-line: 1px;
+  --frame-color: var(--color-button-text);
+}
+
+.frame > .content {
+  position: relative;
+  z-index: 1;
+}
+
+.frame > .corner,
+.frame > .edge {
+  position: absolute;
+  z-index: 2;
+  display: block;
+  pointer-events: none;
+  background: var(--frame-color);
+}
+
+.frame > .corner {
+  width: var(--frame-corner);
+  height: var(--frame-corner);
+  -webkit-mask: url("./assets/corner.svg") center / 100% 100% no-repeat;
+  mask: url("./assets/corner.svg") center / 100% 100% no-repeat;
+}
+
+.frame > .corner.top-left {
+  top: 0;
+  left: 0;
+}
+
+.frame > .corner.top-right {
+  top: 0;
+  right: 0;
+  transform: rotate(90deg);
+}
+
+.frame > .corner.bottom-right {
+  right: 0;
+  bottom: 0;
+  transform: rotate(180deg);
+}
+
+.frame > .corner.bottom-left {
+  bottom: 0;
+  left: 0;
+  transform: rotate(270deg);
+}
+
+.frame > .edge.top,
+.frame > .edge.bottom {
+  right: var(--frame-corner);
+  left: var(--frame-corner);
+  height: var(--frame-line);
+}
+
+.frame > .edge.top {
+  top: 0;
+}
+
+.frame > .edge.bottom {
+  bottom: 0;
+}
+
+.frame > .edge.right,
+.frame > .edge.left {
+  top: var(--frame-corner);
+  bottom: var(--frame-corner);
+  width: var(--frame-line);
+}
+
+.frame > .edge.right {
+  right: 0;
+}
+
+.frame > .edge.left {
+  left: 0;
+}
+
+.frame.selected {
+  --frame-color: var(--color-accent-cyan);
+}
+
+.frame.selected > .corner,
+.frame.selected > .edge {
+  filter:
+    drop-shadow(0 0 4px color-mix(in srgb, var(--color-accent-cyan) 80%, transparent))
+    drop-shadow(0 0 10px color-mix(in srgb, var(--color-accent-cyan) 45%, transparent));
+}
+
+.frame.selected > .content {
+  background: color-mix(in srgb, var(--color-accent-cyan) 14%, var(--color-page-bg));
+}

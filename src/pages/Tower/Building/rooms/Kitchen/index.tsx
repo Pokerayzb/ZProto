@@ -1,32 +1,25 @@
-import { roomAssetKey } from '@game/selectors/rooms';
-import type { RoomVisualState } from '@game/selectors/rooms';
-
-import { Room } from '../../../Room';
-import type { RoomCoordinate } from '../../../Room';
 import busy from './assets/busy.png';
 import empty from './assets/empty.png';
 import idle from './assets/idle.png';
+import {
+  WorkshopRoom,
+  type WorkshopRoomAssetFiles,
+  type WorkshopRoomStateProps,
+} from '../WorkshopRoom';
 
-const files = {
+const files: WorkshopRoomAssetFiles = {
   empty,
   idle,
   busy,
-} as const;
+};
 
-export function Kitchen({
-  state,
-  coordinate,
-  onClick,
-}: {
-  state: RoomVisualState;
-  coordinate: RoomCoordinate;
-  onClick?: () => void;
-}) {
+export function Kitchen({ state, coordinate, onClick }: WorkshopRoomStateProps) {
   return (
-    <Room
+    <WorkshopRoom
+      files={files}
       coordinate={coordinate}
-      file={files[roomAssetKey(state)]}
-      {...(onClick !== undefined && { onClick })}
+      state={state}
+      {...(onClick !== undefined ? { onClick } : {})}
     />
   );
 }

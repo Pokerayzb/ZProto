@@ -1,6 +1,6 @@
 import type { GameState } from '@game/state/types';
 
-export type SaveBlob = {
-    version: number;
-    state: GameState;
-};
+export interface SaveBlob<TState = GameState> {
+  version: number;
+  state: TState;
+}

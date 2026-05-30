@@ -19,9 +19,7 @@ export function Overlay({ className }: OverlayProps = {}) {
   return (
     <div className={classes}>
       <header className="pointer-events-none w-full">
-        <div className="pointer-events-auto w-full">
-          <Header />
-        </div>
+        <Header />
       </header>
 
       <footer className="pointer-events-none flex items-end justify-center px-6 py-4">

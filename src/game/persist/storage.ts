@@ -1,4 +1,5 @@
-import { createInitialState } from '@game/state/initialState';
+import { createInitialState, createEmptyProfession } from '@game/state/initialState';
+import { PROFESSION_IDS } from '@game/domain/professions';
 import type { GameState } from '@game/state/types';
 
 import type { SaveBlob } from './type';
@@ -12,22 +13,56 @@ function isGameState(value: unknown): value is GameState {
 
   const state = value as GameState;
 
-  return (
-    typeof state.player === 'object' &&
-    state.player !== null &&
-    typeof state.professions === 'object' &&
-    state.professions !== null &&
-    Array.isArray(state.taskQueue) &&
-    (state.currentTask === null || typeof state.currentTask === 'object')
-  );
+  if (
+    typeof state.player !== 'object' ||
+    state.player === null ||
+    typeof state.professions !== 'object' ||
+    state.professions === null
+  ) {
+    return false;
+  }
+
+  return PROFESSION_IDS.every((professionId) => {
+    const profession = state.professions[professionId];
+    return (
+      typeof profession === 'object' &&
+      profession !== null &&
+      Array.isArray(profession.taskQueue) &&
+      (profession.currentTask === null || typeof profession.currentTask === 'object')
+    );
+  });
 }
 
 function normalizeLoadedState(state: GameState): GameState {
   const initial = createInitialState();
-  const maxQueueId = state.taskQueue.reduce(
-    (max, task) => Math.max(max, task.id),
-    0,
-  );
+  let maxQueueId = Math.max(state.nextQueueId, 1);
+
+  for (const professionId of PROFESSION_IDS) {
+    for (const task of state.professions[professionId].taskQueue) {
+      maxQueueId = Math.max(maxQueueId, task.id + 1);
+    }
+  }
+
+  const professions = {} as GameState['professions'];
+
+  for (const professionId of PROFESSION_IDS) {
+    const loaded = state.professions[professionId];
+    const defaults = initial.professions[professionId];
+
+    professions[professionId] = {
+      ...createEmptyProfession(),
+      ...defaults,
+      ...loaded,
+      level: loaded.level,
+      skillPoints: loaded.skillPoints,
+      skills: {
+        ...defaults.skills,
+        ...loaded.skills,
+      },
+      taskQueue: loaded.taskQueue,
+      currentTask: loaded.currentTask,
+    };
+  }
 
   return {
     ...initial,
@@ -44,11 +79,8 @@ function normalizeLoadedState(state: GameState): GameState {
       ...initial.inventory,
       ...state.inventory,
     },
-    professions: {
-      ...initial.professions,
-      ...state.professions,
-    },
-    nextQueueId: state.nextQueueId ?? Math.max(maxQueueId + 1, 1),
+    professions,
+    nextQueueId: maxQueueId,
   };
 }
 

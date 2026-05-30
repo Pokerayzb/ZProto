@@ -1,87 +1,17 @@
+@import "../shared/asset-frame.css";
+
 .panel {
-  --overlap: calc(75px * var(--frame-scale));
-  --panel-c: calc(var(--frame-corner-size) * var(--frame-scale));
-  --panel-e: calc(var(--frame-edge-size) * var(--frame-scale));
+  --af-c: calc(var(--frame-corner-size) * var(--frame-scale));
+  --af-e: calc(var(--frame-edge-size) * var(--frame-scale));
   --panel-gap: calc(var(--button-gap) * var(--frame-scale));
-
-  display: grid;
-  grid-template:
-    "tl t tr" var(--panel-c)
-    "l  c r" 1fr
-    "bl b br" var(--panel-c)
-    / var(--panel-c) 1fr var(--panel-c);
-  width: fit-content;
-  max-width: 100%;
-  min-width: 0;
-}
-
-.panel > span {
-  display: block;
-  min-width: 0;
-  min-height: 0;
-}
-
-.panel > .tl,
-.panel > .tr,
-.panel > .bl,
-.panel > .br {
-  background-repeat: no-repeat;
-  background-size: var(--panel-c) var(--panel-c);
-}
-
-.panel > .tl {
-  grid-area: tl;
-  background-image: url("./assets/c_l_t.png");
-}
-
-.panel > .tr {
-  grid-area: tr;
-  background-image: url("./assets/c_r_t.png");
-}
-
-.panel > .bl {
-  grid-area: bl;
-  background-image: url("./assets/c_l_b.png");
-}
-
-.panel > .br {
-  grid-area: br;
-  background-image: url("./assets/c_r_b.png");
-}
-
-.panel > .t {
-  grid-area: t;
-  background: url("./assets/e_t.png") repeat-x left top / var(--panel-e) var(--panel-c), var(--color-button-bg);
-}
-
-.panel > .b {
-  grid-area: b;
-  background: url("./assets/e_b.png") repeat-x left bottom / var(--panel-e) var(--panel-c), var(--color-button-bg);
-}
-
-.panel > .l {
-  grid-area: l;
-  background: url("./assets/e_l.png") repeat-y left top / var(--panel-c) var(--panel-e), var(--color-button-bg);
-}
-
-.panel > .r {
-  grid-area: r;
-  background: url("./assets/e_r.png") repeat-y right top / var(--panel-c) var(--panel-e), var(--color-button-bg);
-}
-
-.panel > .content {
-  grid-area: c;
-  position: relative;
-  place-self: stretch;
-  min-width: 0;
-  min-height: 0;
-  margin: calc(var(--overlap) * -1);
-}
-
-.panel > .content > .background {
-  position: absolute;
-  inset: var(--overlap);
-  background: var(--color-button-bg);
+  --af-tl: url("./assets/c_l_t.png");
+  --af-tr: url("./assets/c_r_t.png");
+  --af-bl: url("./assets/c_l_b.png");
+  --af-br: url("./assets/c_r_b.png");
+  --af-t: url("./assets/e_t.png");
+  --af-b: url("./assets/e_b.png");
+  --af-l: url("./assets/e_l.png");
+  --af-r: url("./assets/e_r.png");
 }
 
 .panel > .content > .inner {

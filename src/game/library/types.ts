@@ -25,15 +25,21 @@ export type Product = {
 export type LibrarySkill = {
   id: string;
   professionId: ProfessionId;
+  description: string;
   ingredients: Ingredient[];
   products: Product[];
-  durationSeconds: number;
-  experienceGained: number;
+  /** Task duration in milliseconds. */
+  duration: number;
+  /** Experience gained per successful application. */
+  xp: number;
+  icon: string;
 };
 
 export type LibraryItem = {
   id: string;
   name: string;
+  description: string;
+  icon: string;
 };
 
 export type GameLibrary = {

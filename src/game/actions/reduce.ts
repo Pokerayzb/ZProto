@@ -2,6 +2,7 @@ import { Award } from '@game/events/Award';
 import { CancelTask } from '@game/events/CancelTask';
 import { LearnSkill } from '@game/events/LearnSkill';
 import { Plan } from '@game/events/Plan';
+import { SetSkillFavorite } from '@game/events/SetSkillFavorite';
 import { StartQueue } from '@game/events/StartQueue';
 import { Tick } from '@game/events/Tick';
 import { Unplan } from '@game/events/Unplan';
@@ -11,6 +12,7 @@ import { handleAward } from '@game/actions/handlers/handleAward';
 import { handleCancelTask } from '@game/actions/handlers/handleCancelTask';
 import { handleLearnSkill } from '@game/actions/handlers/handleLearnSkill';
 import { handlePlan } from '@game/actions/handlers/handlePlan';
+import { handleSetSkillFavorite } from '@game/actions/handlers/handleSetSkillFavorite';
 import { handleStartQueue } from '@game/actions/handlers/handleStartQueue';
 import { handleTick } from '@game/actions/handlers/handleTick';
 import { handleUnplan } from '@game/actions/handlers/handleUnplan';
@@ -34,15 +36,19 @@ export function reduce(
   }
 
   if (event instanceof StartQueue) {
-    return handleStartQueue(state);
+    return handleStartQueue(state, event);
   }
 
   if (event instanceof CancelTask) {
-    return handleCancelTask(state);
+    return handleCancelTask(state, event);
   }
 
   if (event instanceof LearnSkill) {
     return handleLearnSkill(state, event, library);
+  }
+
+  if (event instanceof SetSkillFavorite) {
+    return handleSetSkillFavorite(state, event, library);
   }
 
   if (event instanceof Tick) {

@@ -1,4 +1,4 @@
-import { initialLevelProgress } from '@game/progression';
+import { createDefaultPlayerSkill } from '@game/state/initialState';
 import type { LearnSkill } from '@game/events/LearnSkill';
 import type { GameLibrary } from '@game/library/types';
 import type { GameState } from '@game/state/types';
@@ -23,9 +23,10 @@ export function handleLearnSkill(
     professions: {
       ...state.professions,
       [skill.professionId]: {
+        ...profession,
         skills: {
           ...profession.skills,
-          [event.skillId]: initialLevelProgress,
+          [event.skillId]: createDefaultPlayerSkill(),
         },
       },
     },

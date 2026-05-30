@@ -1,7 +1,7 @@
 import { applyExperience } from '@game/progression';
 import type { GameState, ProfessionId } from '@game/state/types';
 
-export function addSkillExperience(
+export function recordSkillApplication(
   state: GameState,
   skillId: string,
   professionId: ProfessionId,
@@ -19,9 +19,14 @@ export function addSkillExperience(
     professions: {
       ...state.professions,
       [professionId]: {
+        ...profession,
+        level: applyExperience(profession.level, experienceGained),
         skills: {
           ...profession.skills,
-          [skillId]: applyExperience(existing, experienceGained),
+          [skillId]: {
+            ...existing,
+            applications: existing.applications + 1,
+          },
         },
       },
     },

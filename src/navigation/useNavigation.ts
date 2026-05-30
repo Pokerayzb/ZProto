@@ -3,7 +3,9 @@ import { useContext } from 'react';
 import {
   NavigationContext,
   type NavigationContextValue,
-} from './NavigationProvider';
+} from './context';
+
+export type { NavigationContextValue };
 
 export function useNavigation(): NavigationContextValue {
   const context = useContext(NavigationContext);

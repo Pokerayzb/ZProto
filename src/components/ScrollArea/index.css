@@ -1,0 +1,28 @@
+.scroll-area > .bar > .control > .arrow {
+  width: 0;
+  height: 0;
+  border-right: 0.3125rem solid transparent;
+  border-left: 0.3125rem solid transparent;
+}
+
+.scroll-area > .bar > .control > .arrow.up {
+  border-bottom: 0.5rem solid currentColor;
+}
+
+.scroll-area > .bar > .control > .arrow.down {
+  border-top: 0.5rem solid currentColor;
+}
+
+.scroll-area > .bar > .track::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(50% - 1px);
+  width: 2px;
+  background: currentColor;
+}
+
+.scroll-area > .bar > .track > .thumb:active {
+  cursor: grabbing;
+}

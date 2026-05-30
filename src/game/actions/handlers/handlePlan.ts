@@ -8,21 +8,30 @@ export function handlePlan(state: GameState, event: Plan, library: GameLibrary):
     return state;
   }
 
-  if (library.skills[event.skillId] === undefined) {
+  const skill = library.skills[event.skillId];
+  if (skill === undefined) {
     return state;
   }
 
+  const professionId = skill.professionId;
+  const profession = state.professions[professionId];
   const id = state.nextQueueId;
   const now = Date.now();
 
   const withPlan: GameState = {
     ...state,
     nextQueueId: id + 1,
-    taskQueue: [
-      ...state.taskQueue,
-      { id, skillId: event.skillId, count: event.count },
-    ],
+    professions: {
+      ...state.professions,
+      [professionId]: {
+        ...profession,
+        taskQueue: [
+          ...profession.taskQueue,
+          { id, skillId: event.skillId, count: event.count },
+        ],
+      },
+    },
   };
 
-  return startNextTask(withPlan, now);
+  return startNextTask(withPlan, professionId, now);
 }
