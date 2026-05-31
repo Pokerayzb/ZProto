@@ -1,4 +1,5 @@
 import { definePage } from '../definePage';
+import { FactionBrowser } from '@pages/Zeppelins/FactionVisit';
 
 import background from './assets/background.png';
 import icon from './assets/icon.png';
@@ -9,4 +10,5 @@ export const reputationPage = definePage({
   title: "Reputation",
   icon,
   background,
+  children: <FactionBrowser />,
 });
