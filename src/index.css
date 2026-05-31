@@ -102,6 +102,10 @@
 }
 
 @layer base {
+  body {
+    background: var(--color-app-bg);
+  }
+
   h1 {
     @apply text-4xl font-bold leading-normal;
   }

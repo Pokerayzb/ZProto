@@ -12,7 +12,7 @@ export function App() {
       <NavigationProvider>
         <FactionVisitProvider>
           <GameStageProvider>
-            <div className="relative min-h-dvh w-full overflow-hidden bg-app-bg">
+            <div className="pointer-events-none relative min-h-dvh w-full overflow-hidden">
               <div className="relative z-0 min-h-dvh w-full">
                 <PageOutlet />
               </div>

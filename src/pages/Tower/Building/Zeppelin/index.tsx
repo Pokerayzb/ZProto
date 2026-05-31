@@ -17,6 +17,8 @@ export interface ZeppelinProps {
   /** Dock anchor as a fraction of the viewport (0..1). */
   anchorX?: number;
   anchorY?: number;
+  /** World z-index (relative to sky / tower / flag). */
+  zIndex?: number;
 }
 
 type Controller = { sync: (phase: VisitPhase, id: string) => void };
@@ -38,6 +40,7 @@ export function Zeppelin({
   scale = 1,
   anchorX = 0.5,
   anchorY = 0.42,
+  zIndex = 0,
 }: ZeppelinProps) {
   const stage = useGameStage();
   const controllerRef = useRef<Controller | null>(null);
@@ -104,7 +107,7 @@ export function Zeppelin({
         await loadSpineAsset(id, urls);
         if (disposed) return;
         const s = createSpine(id);
-        s.zIndex = 0;
+        s.zIndex = zIndex;
         s.visible = false;
         s.state.data.setMix('start', 'idle', 0.25);
         s.state.data.setMix('idle', 'end', 0.25);
@@ -135,7 +138,7 @@ export function Zeppelin({
         entries[key]?.destroy();
       }
     };
-  }, [stage, scale, anchorX, anchorY]);
+  }, [stage, scale, anchorX, anchorY, zIndex]);
 
   // Drive arrival/departure from the visit phase.
   useEffect(() => {
