@@ -1,6 +1,7 @@
 import { useNavigation } from '@navigation/useNavigation';
 
 import { CharacterPortrait } from './CharacterPortrait';
+import { VisitStatus } from './VisitStatus';
 
 export interface HeaderProps {
   className?: string;
@@ -22,6 +23,7 @@ export function Header({ className }: HeaderProps = {}) {
         <h1 className="m-0 min-w-0 flex-1 text-center whitespace-nowrap text-button-text">
           {page.title}
         </h1>
+        <VisitStatus />
       </div>
     </div>
   );

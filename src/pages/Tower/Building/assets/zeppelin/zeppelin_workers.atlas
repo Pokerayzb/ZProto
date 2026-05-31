@@ -1,0 +1,13 @@
+
+zeppelin_workers.png
+size: 480,348
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+work_ship
+  rotate: false
+  xy: 2, 2
+  size: 476, 344
+  orig: 476, 344
+  offset: 0, 0
+  index: -1

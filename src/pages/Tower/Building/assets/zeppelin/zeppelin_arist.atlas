@@ -1,0 +1,13 @@
+
+zeppelin_arist.png
+size: 477,319
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+images/arist_ship
+  rotate: false
+  xy: 2, 2
+  size: 473, 315
+  orig: 473, 315
+  offset: 0, 0
+  index: -1

@@ -1,11 +1,15 @@
 import { useRoomStates } from '@game/hooks/useRoomStates';
 import { getProfessionId, type RoomId } from '@game/selectors/rooms';
+import { factions } from '@game/factions';
+import { useFactionVisit } from '@game/factions/useFactionVisit';
 import { useNavigation } from '@navigation/useNavigation';
 import type { CSSProperties } from 'react';
 
 import { Blacksmith } from './rooms/Blacksmith';
 import { Carpentry } from './rooms/Carpentry';
 import { Kitchen } from './rooms/Kitchen';
+import { Zeppelin } from './Zeppelin';
+import { Flag } from './Flag';
 import type { RoomCoordinate } from '../Room';
 import towerSkeleton from './assets/tower.png';
 import './index.css';
@@ -44,6 +48,8 @@ export function Building({
 }: BuildingProps = {}) {
   const { navigate } = useNavigation();
   const roomStates = useRoomStates();
+  const visit = useFactionVisit();
+  const visitZeppelinId = factions[visit.factionId].zeppelinId;
 
   function handleRoomClick(roomId: RoomId) {
     navigate('craft', { professionId: getProfessionId(roomId) });
@@ -64,6 +70,7 @@ export function Building({
   return (
     <div className="building" style={style as CSSProperties}>
       <div className="stack">
+        <Zeppelin className="zeppelin" zeppelinId={visitZeppelinId} phase={visit.phase} />
         <Kitchen
           state={roomStates.kitchen}
           coordinate={coordinates.kitchen}
@@ -85,6 +92,7 @@ export function Building({
           alt=""
           decoding="async"
         />
+        <Flag className="flag" />
         {layers.map((layer, index) => (
           <BuildingLayerImage key={layer.id} layer={layer} zIndex={index + 1} />
         ))}

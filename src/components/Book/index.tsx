@@ -4,6 +4,7 @@ import { Chapter, type ChapterProps } from './Chapter';
 import { BurningDot } from './BurningDot';
 import './index.css';
 import frameName from './assets/frame_name.png';
+import frameNameActive from './assets/frame_name_add.png';
 
 export interface BookProps {
   name: string;
@@ -40,7 +41,10 @@ export function Book({ name, children, className, initialChapterId }: BookProps)
               key={chapter.props.id}
               type="button"
               className="book-tab relative flex cursor-pointer items-end justify-center text-button-text transition-all"
-              style={{ width: `${tabWidthPercent}%` }}
+              style={{
+                width: `${tabWidthPercent}%`,
+                ['--book-tab-bg' as string]: `url(${isActive ? frameNameActive : frameName})`,
+              }}
               onClick={() => setActiveChapterId(chapter.props.id)}
             >
               {isActive && <BurningDot />}

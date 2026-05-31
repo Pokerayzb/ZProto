@@ -26,27 +26,29 @@ export function InventoryComponent() {
 
   function renderItemGrid(itemsList: typeof items) {
     return (
-      <div className="grid grid-cols-2 gap-3.5 pr-1 py-1">
-        {itemsList.map((item) => {
+      <div className="grid grid-cols-4 gap-2.5 pr-1 py-1">
+        {itemsList
+          .filter((item) => (inventory[item.id] ?? 0) > 0)
+          .map((item) => {
           const qty = inventory[item.id] ?? 0;
           return (
             <Frame
               key={item.id}
               className={
-                'flex items-center gap-3.5 border border-page-text/10 bg-page-text/15 p-3 transition-all' +
+                'flex items-center gap-2 border border-page-text/10 bg-page-text/15 p-2 transition-all' +
                 (qty > 0 ? ' border-page-text/30 shadow-sm' : ' opacity-40 grayscale')
               }
             >
-              <div className="flex size-12 shrink-0 items-center justify-center rounded border border-page-text/10 bg-page-text/20 p-1">
+              <div className="flex size-10 shrink-0 items-center justify-center rounded border border-page-text/10 bg-page-text/20 p-1">
                 <img src={item.icon} alt={item.name} className="size-full object-contain" />
               </div>
               <div className="min-w-0 flex-1">
-                <h4 className="truncate font-serif text-base font-bold leading-tight">{item.name}</h4>
-                <p className="mt-0.5 truncate text-xs leading-tight opacity-65" title={item.description}>
+                <h4 className="truncate font-serif text-sm font-bold leading-tight" title={item.name}>{item.name}</h4>
+                <p className="mt-0.5 truncate text-[11px] leading-tight opacity-65" title={item.description}>
                   {item.description}
                 </p>
               </div>
-              <div className="shrink-0 rounded border border-page-text/15 bg-page-text/5 px-2 py-0.5 font-mono text-lg font-bold">
+              <div className="shrink-0 rounded border border-page-text/15 bg-page-text/5 px-1.5 py-0.5 font-mono text-sm font-bold">
                 x{qty}
               </div>
             </Frame>

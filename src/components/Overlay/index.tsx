@@ -23,7 +23,7 @@ export function Overlay({ className }: OverlayProps = {}) {
       </header>
 
       <footer className="pointer-events-none flex items-end justify-center px-6 py-4">
-        <div className="pointer-events-auto">
+        <div className="pointer-events-auto origin-bottom scale-60">
           <Panel layout="horizontal">
             {navBarPages.map((page) => (
               <NavItem

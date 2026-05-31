@@ -1,0 +1,13 @@
+
+zeppelin_trade.png
+size: 459,312
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+images/trad_ship
+  rotate: false
+  xy: 2, 2
+  size: 455, 308
+  orig: 455, 308
+  offset: 0, 0
+  index: -1

@@ -28,6 +28,28 @@
   pointer-events: none;
 }
 
+.building > .stack > .zeppelin {
+  position: absolute;
+  left: 100%;
+  top: 30%;
+  z-index: 0;
+  width: 419%;
+  height: auto;
+  transform: translate(calc(-50% - 100px), calc(-50% + 50px));
+  pointer-events: none;
+}
+
+.building > .stack > .flag {
+  position: absolute;
+  left: 33%;
+  top: 0%;
+  z-index: 2;
+  height: 18%;
+  width: auto;
+  transform: translate(calc(-50% + 45px), calc(-88% + 65px));
+  pointer-events: none;
+}
+
 .building > .stack > .layer {
   position: absolute;
   left: 50%;
