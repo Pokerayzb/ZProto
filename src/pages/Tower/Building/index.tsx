@@ -70,7 +70,7 @@ export function Building({
   return (
     <div className="building" style={style as CSSProperties}>
       <div className="stack">
-        <Zeppelin className="zeppelin" zeppelinId={visitZeppelinId} phase={visit.phase} />
+        <Zeppelin zeppelinId={visitZeppelinId} phase={visit.phase} />
         <Kitchen
           state={roomStates.kitchen}
           coordinate={coordinates.kitchen}
@@ -92,7 +92,7 @@ export function Building({
           alt=""
           decoding="async"
         />
-        <Flag className="flag" />
+        <Flag />
         {layers.map((layer, index) => (
           <BuildingLayerImage key={layer.id} layer={layer} zIndex={index + 1} />
         ))}

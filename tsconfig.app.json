@@ -28,7 +28,8 @@
       "@components/*": ["./src/components/*"],
       "@pages/*": ["./src/pages/*"],
       "@navigation/*": ["./src/navigation/*"],
-      "@game/*": ["./src/game/*"]
+      "@game/*": ["./src/game/*"],
+      "@engine/*": ["./src/engine/*"]
     }
   },
   "include": ["src"]
