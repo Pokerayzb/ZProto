@@ -192,7 +192,7 @@ export function TowerScene() {
         zIndex={ZEPPELIN_Z}
         anchorY={0.3}
       />
-      <Flag zIndex={FLAG_Z} anchorY={0.18} />
+      <Flag zIndex={FLAG_Z} anchorY={0.18} offsetX={-75} />
     </>
   );
 }

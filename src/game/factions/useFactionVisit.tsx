@@ -1,5 +1,6 @@
 import {
   createContext,
+  useCallback,
   useContext,
   useEffect,
   useRef,
@@ -24,7 +25,12 @@ export type FactionVisitState = {
   secondsLeft: number;
 };
 
-const FactionVisitContext = createContext<FactionVisitState | null>(null);
+export type FactionVisitApi = FactionVisitState & {
+  /** DEV: shorten the wait so the next zeppelin arrives in ~5 seconds. */
+  hurryArrival: () => void;
+};
+
+const FactionVisitContext = createContext<FactionVisitApi | null>(null);
 
 function randomFaction(exclude?: FactionId): FactionId {
   const pool = exclude
@@ -66,14 +72,25 @@ export function FactionVisitProvider({ children }: { children: ReactNode }) {
     return () => window.clearInterval(timer);
   }, []);
 
+  // DEV helper: if a zeppelin is still incoming, cut the wait down to 5 seconds.
+  const hurryArrival = useCallback(() => {
+    setState((prev) =>
+      prev.phase === 'incoming' && prev.secondsLeft > 5
+        ? { ...prev, secondsLeft: 5 }
+        : prev,
+    );
+  }, []);
+
+  const value: FactionVisitApi = { ...state, hurryArrival };
+
   return (
-    <FactionVisitContext.Provider value={state}>
+    <FactionVisitContext.Provider value={value}>
       {children}
     </FactionVisitContext.Provider>
   );
 }
 
-export function useFactionVisit(): FactionVisitState {
+export function useFactionVisit(): FactionVisitApi {
   const ctx = useContext(FactionVisitContext);
   if (ctx === null) {
     throw new Error('useFactionVisit must be used within FactionVisitProvider');

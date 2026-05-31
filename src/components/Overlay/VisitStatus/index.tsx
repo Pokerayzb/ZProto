@@ -13,10 +13,11 @@ export function VisitStatus() {
   const countdown = formatVisitCountdown(visit.secondsLeft);
 
   return (
+    <div className="pointer-events-auto flex shrink-0 items-center gap-2">
     <button
       type="button"
       onClick={() => navigate('zeppelins', { factionId: visit.factionId })}
-      className="pointer-events-auto flex shrink-0 items-center gap-3 rounded-lg border border-button-text/40 bg-button-bg/90 px-3 py-2 text-left text-button-text transition-colors hover:bg-button-bg"
+      className="flex shrink-0 items-center gap-3 rounded-lg border border-button-text/40 bg-button-bg/90 px-3 py-2 text-left text-button-text transition-colors hover:bg-button-bg"
     >
       <img src={faction.crest} alt="" className="size-9 shrink-0 object-contain" />
       <span className="min-w-0 leading-tight">
@@ -39,5 +40,16 @@ export function VisitStatus() {
         )}
       </span>
     </button>
+      {import.meta.env.DEV && !isDocked && (
+        <button
+          type="button"
+          onClick={visit.hurryArrival}
+          title="DEV: дирижабль прибудет через 5 секунд"
+          className="shrink-0 rounded-lg border border-button-text/40 bg-button-bg/90 px-2 py-2 text-xs font-bold text-button-text transition-colors hover:bg-button-bg"
+        >
+          ⏩ 5s
+        </button>
+      )}
+    </div>
   );
 }

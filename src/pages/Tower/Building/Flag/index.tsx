@@ -7,6 +7,8 @@ export interface FlagProps {
   /** Anchor as a fraction of the viewport (0..1). */
   anchorX?: number;
   anchorY?: number;
+  /** Additional horizontal offset in pixels (applied after the anchor). */
+  offsetX?: number;
   zIndex?: number;
 }
 
@@ -15,8 +17,8 @@ export interface FlagProps {
  * standalone WebGL canvas — it now shares the single world context with the
  * zeppelin and everything else.
  */
-export function Flag({ scale = 1, anchorX = 0.5, anchorY = 0.12, zIndex = 2 }: FlagProps) {
-  const x = typeof window === 'undefined' ? 0 : window.innerWidth * anchorX;
+export function Flag({ scale = 1, anchorX = 0.5, anchorY = 0.12, offsetX = 0, zIndex = 2 }: FlagProps) {
+  const x = typeof window === 'undefined' ? 0 : window.innerWidth * anchorX + offsetX;
   const y = typeof window === 'undefined' ? 0 : window.innerHeight * anchorY;
   return (
     <SpineActor
