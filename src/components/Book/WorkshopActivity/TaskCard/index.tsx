@@ -1,10 +1,11 @@
 import { Frame } from '@components/Frame';
 import { ProgressBar } from '@components/ProgressBar';
 
-export interface TaskCardProgress {
-  value: number;
-  label: string;
-}
+export type TaskCardProgress =
+  {
+    startedAt: number;
+    totalMs: number;
+  };
 
 export interface TaskCardProps {
   title: string;
@@ -57,9 +58,10 @@ export function TaskCard({
         </div>
         {progress ? (
           <ProgressBar
-            value={progress.value}
+            mode="timed"
+            startedAt={progress.startedAt}
+            totalMs={progress.totalMs}
             size="small"
-            label={progress.label}
           />
         ) : null}
       </div>

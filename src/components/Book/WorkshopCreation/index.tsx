@@ -47,17 +47,34 @@ export function WorkshopCreation({ skill }: WorkshopCreationProps) {
     dispatch(new Plan(skill.id, quantity));
   }
 
+  const titleBlock = (
+    <>
+      <h1 className="font-serif text-2xl font-bold leading-tight">{title}</h1>
+      {description ? (
+        <p className="mt-1 text-sm italic leading-snug text-page-text/75">{description}</p>
+      ) : null}
+    </>
+  );
+
   return (
     <div className="flex h-full min-h-0 flex-col py-1">
-      <div className="mb-4 grid shrink-0 grid-cols-[2fr_1fr] items-start gap-4">
-        <Portrait iconSrc={skill.icon} iconAlt={title} className="aspect-square h-auto w-full" />
-        <div className="min-w-0">
-          <h1 className="font-serif text-2xl font-bold leading-tight">{title}</h1>
-          {description ? (
-            <p className="mt-1 text-sm italic leading-snug text-page-text/75">{description}</p>
-          ) : null}
+      {workshopSkill.isCraft ? (
+        <div className="mb-4 grid shrink-0 grid-cols-[2fr_1fr] items-start gap-4">
+          <Portrait iconSrc={skill.icon} iconAlt={title} className="aspect-square h-auto w-full" />
+          <div className="min-w-0">{titleBlock}</div>
         </div>
-      </div>
+      ) : (
+        <div className="mb-4 shrink-0">
+          <div className="flex justify-center">
+            <Portrait
+              iconSrc={skill.icon}
+              iconAlt={title}
+              className="aspect-square h-auto w-2/3"
+            />
+          </div>
+          <div className="mt-4 min-w-0">{titleBlock}</div>
+        </div>
+      )}
 
       <div className="flex min-h-0 flex-1 flex-col pt-1">
         {workshopSkill.isCraft ? (

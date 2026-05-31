@@ -1,4 +1,5 @@
 import { recordSkillApplication } from '@game/systems/skills';
+import { addPlayerExperience } from '@game/systems/player';
 import { PROFESSION_IDS } from '@game/domain/professions';
 import type { GameLibrary } from '@game/library/types';
 import type { GameState, ProfessionId } from '@game/state/types';
@@ -83,14 +84,17 @@ export function completeCurrentTask(
   }
 
   const stateWithInv = { ...state, inventory };
-  let next = hasIngredients
-    ? recordSkillApplication(
-        stateWithInv,
-        skillDef.id,
-        skillDef.professionId,
-        skillDef.xp,
-      )
-    : stateWithInv;
+  let next = stateWithInv;
+
+  if (hasIngredients) {
+    next = recordSkillApplication(
+      next,
+      skillDef.id,
+      skillDef.professionId,
+      skillDef.xp,
+    );
+    next = addPlayerExperience(next, skillDef.xp);
+  }
 
   const updatedProfession = next.professions[professionId];
   const head = updatedProfession.taskQueue[0];

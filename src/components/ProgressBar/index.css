@@ -40,6 +40,58 @@
     inset 0 -1px 0 color-mix(in srgb, var(--color-accent-cyan) 55%, black);
 }
 
+.progressbar > .track > .groove > .fill.fill-animated-horizontal {
+  transform-origin: left center;
+  animation-name: progress-fill-horizontal;
+  animation-duration: var(--progress-duration-ms, 0ms);
+  animation-delay: var(--progress-delay-ms, 0ms);
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+  will-change: transform;
+}
+
+.progressbar > .track > .groove > .fill.fill-animated-vertical {
+  transform-origin: center bottom;
+  animation-name: progress-fill-vertical;
+  animation-duration: var(--progress-duration-ms, 0ms);
+  animation-delay: var(--progress-delay-ms, 0ms);
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+  will-change: transform;
+}
+
+@keyframes progress-fill-horizontal {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes progress-fill-vertical {
+  from {
+    transform: scaleY(0);
+  }
+
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progressbar > .track > .groove > .fill.fill-animated-horizontal {
+    animation: none;
+    transform: scaleX(var(--progress-static-horizontal, 1));
+  }
+
+  .progressbar > .track > .groove > .fill.fill-animated-vertical {
+    animation: none;
+    transform: scaleY(var(--progress-static-vertical, 1));
+  }
+}
+
 .progressbar > .track > .groove > .fill::after {
   content: "";
   position: absolute;

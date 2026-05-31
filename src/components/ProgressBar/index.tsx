@@ -1,16 +1,30 @@
-import type { ReactNode } from 'react';
+import { useEffect, useState, type CSSProperties, type ReactNode } from 'react';
 
 import type { Layout, Size } from '@components/shared';
 
 import './index.css';
 
-export interface ProgressBarProps {
-  value: number;
+interface ProgressBarCommonProps {
   size?: Size;
   layout?: Layout;
-  label?: ReactNode;
   className?: string;
 }
+
+interface ValueProgressBarProps extends ProgressBarCommonProps {
+  mode?: 'value';
+  value: number;
+  label?: ReactNode;
+}
+
+interface TimedProgressBarProps extends ProgressBarCommonProps {
+  mode: 'timed';
+  startedAt: number;
+  totalMs: number;
+}
+
+export type ProgressBarProps = ValueProgressBarProps | TimedProgressBarProps;
+
+const timedLabelUpdateMs = 250;
 
 const sizeClasses: Record<
   Size,
@@ -57,14 +71,74 @@ function clampProgress(value: number) {
   return value;
 }
 
-export function ProgressBar({
-  value,
-  size = 'normal',
-  layout = 'horizontal',
-  label,
-  className,
-}: ProgressBarProps) {
-  const progress = clampProgress(value);
+function clampMs(value: number) {
+  if (value < 0) {
+    return 0;
+  }
+
+  return value;
+}
+
+function formatProgressTime(remainingMs: number): string {
+  const totalSeconds = Math.max(0, Math.ceil(remainingMs / 1000));
+
+  if (totalSeconds >= 60) {
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+    return `${String(minutes)}:${String(seconds).padStart(2, '0')}`;
+  }
+
+  return `${String(totalSeconds)}s`;
+}
+
+export function ProgressBar(props: ProgressBarProps) {
+  const { size = 'normal', layout = 'horizontal', className } = props;
+  const isTimed = props.mode === 'timed';
+  const startedAt = isTimed ? props.startedAt : 0;
+  const totalMs = isTimed ? clampMs(props.totalMs) : 0;
+  const [now, setNow] = useState(() => Date.now());
+  const [animationElapsedMs, setAnimationElapsedMs] = useState(0);
+
+  useEffect(() => {
+    if (!isTimed || totalMs <= 0) {
+      return;
+    }
+
+    const endAt = startedAt + totalMs;
+    const timerId = window.setInterval(() => {
+      const currentTime = Date.now();
+      setNow(currentTime);
+
+      if (currentTime >= endAt) {
+        window.clearInterval(timerId);
+      }
+    }, timedLabelUpdateMs);
+
+    return () => {
+      window.clearInterval(timerId);
+    };
+  }, [isTimed, startedAt, totalMs]);
+
+  useEffect(() => {
+    if (!isTimed || totalMs <= 0) {
+      setAnimationElapsedMs(0);
+      return;
+    }
+
+    const initialElapsed = Math.min(totalMs, Math.max(0, Date.now() - startedAt));
+    setAnimationElapsedMs(initialElapsed);
+  }, [isTimed, startedAt, totalMs]);
+
+  const durationMs = isTimed ? Math.max(1, totalMs) : 0;
+  const elapsedMs = isTimed
+    ? Math.min(durationMs, Math.max(0, now - startedAt))
+    : 0;
+  const progress = isTimed
+    ? clampProgress(elapsedMs / durationMs)
+    : clampProgress(props.value);
+  const label = isTimed
+    ? formatProgressTime(Math.max(0, durationMs - elapsedMs))
+    : props.label;
   const classes = sizeClasses[size];
   const dimension =
     layout === 'horizontal' ? classes.horizontal : classes.vertical;
@@ -73,14 +147,28 @@ export function ProgressBar({
       ? classes.grooveHorizontal
       : classes.grooveVertical;
   const progressPercent = String(progress * 100);
-  const fillStyle =
-    layout === 'horizontal'
+  const fillStyle: CSSProperties = isTimed
+    ? {
+      width: layout === 'horizontal' ? '100%' : undefined,
+      height: layout === 'vertical' ? '100%' : undefined,
+      ['--progress-duration-ms' as string]: `${durationMs}ms`,
+      ['--progress-delay-ms' as string]: `-${animationElapsedMs}ms`,
+      ['--progress-static-horizontal' as string]: String(progress),
+      ['--progress-static-vertical' as string]: String(progress),
+    }
+    : layout === 'horizontal'
       ? { width: `${progressPercent}%` }
       : { height: `${progressPercent}%` };
   const fillPosition =
     layout === 'horizontal'
       ? 'top-0 left-0 h-full'
       : 'right-0 bottom-0 left-0';
+  const fillAnimationClass = isTimed
+    ? layout === 'horizontal'
+      ? 'fill-animated-horizontal'
+      : 'fill-animated-vertical'
+    : 'transition-[width,height] duration-150 linear motion-reduce:transition-none';
+  const fillKey = isTimed ? `${startedAt}:${durationMs}:${layout}` : 'value';
   const rootClasses =
     'progressbar relative isolate grid min-h-0 min-w-0 place-items-center rounded-full ' +
     layout +
@@ -109,8 +197,11 @@ export function ProgressBar({
           }
         >
           <div
+            key={fillKey}
             className={
-              'fill absolute overflow-hidden rounded-[inherit] transition-[width,height] duration-200 ease-out ' +
+              'fill absolute overflow-hidden rounded-[inherit] ' +
+              fillAnimationClass +
+              ' ' +
               fillPosition
             }
             style={fillStyle}
