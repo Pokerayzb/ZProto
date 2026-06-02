@@ -13,6 +13,7 @@ export default defineConfig({
       "@pages": fileURLToPath(new URL("./src/pages", import.meta.url)),
       "@navigation": fileURLToPath(new URL("./src/navigation", import.meta.url)),
       "@game": fileURLToPath(new URL("./src/game", import.meta.url)),
+      "@engine": fileURLToPath(new URL("./src/engine", import.meta.url)),
     },
   },
 });

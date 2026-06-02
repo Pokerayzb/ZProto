@@ -60,7 +60,7 @@ export function WorkshopCreation({ skill }: WorkshopCreationProps) {
     <div className="flex h-full min-h-0 flex-col py-1">
       {workshopSkill.isCraft ? (
         <div className="mb-4 grid shrink-0 grid-cols-[2fr_1fr] items-start gap-4">
-          <Portrait iconSrc={skill.icon} iconAlt={title} className="aspect-square h-auto w-full" />
+          <Portrait iconSrc={skill.icon} iconAlt={title} className="aspect-square h-auto w-[70%] justify-self-center" />
           <div className="min-w-0">{titleBlock}</div>
         </div>
       ) : (
@@ -69,7 +69,7 @@ export function WorkshopCreation({ skill }: WorkshopCreationProps) {
             <Portrait
               iconSrc={skill.icon}
               iconAlt={title}
-              className="aspect-square h-auto w-2/3"
+              className="aspect-square h-auto w-[46%]"
             />
           </div>
           <div className="mt-4 min-w-0">{titleBlock}</div>

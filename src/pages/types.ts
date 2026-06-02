@@ -23,5 +23,7 @@ export interface DefinePageOptions {
   title: string;
   icon: string;
   background: string;
+  /** When true, the DOM background image is skipped (the Pixi world renders it). */
+  transparentBackground?: boolean;
   children?: ReactNode;
 }

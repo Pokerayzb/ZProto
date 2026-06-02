@@ -12,8 +12,10 @@
     "typecheck": "tsc -b --noEmit"
   },
   "dependencies": {
+    "@esotericsoftware/spine-pixi-v8": "^4.3.5",
     "@fontsource/noto-serif": "^5.2.9",
     "@fontsource/zen-old-mincho": "^5.2.8",
+    "pixi.js": "^8.18.1",
     "react": "^19.2.6",
     "react-dom": "^19.2.6"
   },

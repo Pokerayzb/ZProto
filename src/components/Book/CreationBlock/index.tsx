@@ -2,8 +2,7 @@ import { useState } from 'react';
 
 import { Button } from '@components/Button';
 import { NumericBox } from '@components/NumericBox';
-
-import './index.css';
+import { Panel } from '@components/Panel';
 
 export interface CreationBlockProps {
   maxCount: number;
@@ -45,13 +44,15 @@ export function CreationBlock({
         min={min}
         max={effectiveMax}
       />
-      <Button
-        className="create"
-        disabled={!canCreate}
-        onClick={handleCreate}
-      >
-        Create
-      </Button>
+      <Panel layout="horizontal" className="h-full w-full min-h-0 min-w-0">
+        <Button
+          className="w-full min-w-0 text-xl font-bold"
+          disabled={!canCreate}
+          onClick={handleCreate}
+        >
+          Create
+        </Button>
+      </Panel>
     </div>
   );
 }

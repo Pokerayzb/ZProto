@@ -22,8 +22,8 @@ export function Overlay({ className }: OverlayProps = {}) {
         <Header />
       </header>
 
-      <footer className="pointer-events-none flex items-end justify-center px-6 py-4">
-        <div className="pointer-events-auto">
+      <footer className="pointer-events-none flex items-end justify-center pb-4">
+        <div className="pointer-events-auto origin-bottom scale-70">
           <Panel layout="horizontal">
             {navBarPages.map((page) => (
               <NavItem
@@ -31,9 +31,7 @@ export function Overlay({ className }: OverlayProps = {}) {
                 icon={page.icon}
                 title={page.title}
                 active={isActive(page.id)}
-                onClick={() => {
-                  navigate(page.id);
-                }}
+                onClick={() => { navigate(page.id); }}
               />
             ))}
           </Panel>

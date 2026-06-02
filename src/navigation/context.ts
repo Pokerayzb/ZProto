@@ -2,13 +2,12 @@ import { createContext } from 'react';
 
 import type { PageDefinition, PageId } from '@pages/types';
 
-import type { NavigateOptions } from './types';
-
 export interface NavigationContextValue {
   pageId: PageId;
   page: PageDefinition;
-  pageOptions: NavigateOptions | null;
-  navigate: (pageId: PageId, options?: NavigateOptions) => void;
+  /** Active book tab from the last navigate() call, when provided. */
+  tab: string | null;
+  navigate: (pageId: PageId, tab?: string) => void;
   isActive: (pageId: PageId) => boolean;
 }
 

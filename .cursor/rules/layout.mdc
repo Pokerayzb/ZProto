@@ -1,0 +1,18 @@
+---
+description: Prefer simple layout; fix root cause; remove obsolete styles
+alwaysApply: true
+---
+
+# Layout
+
+- Always prefer the cleanest and simplest possible way to lay things out (flex/grid, natural document flow, shared tokens) over stacking workarounds.
+- When you change layout, remove the old tricks that block relied on (extra wrappers, offsets, negative margins, one-off padding) so styles do not bloat.
+- Never fix clipping/alignment/overflow with arbitrary one-off numbers (for example random padding/margin/offset values).
+- Do not introduce unexplained values like `0.12em`, `3px`, `-1px` unless they come from a documented design token or asset geometry.
+- First identify the real cause: line-height, overflow axis, font metrics, text container sizing, vertical alignment, or parent clipping.
+- Prefer structural fixes:
+  - correct overflow axis (`overflow-x` vs `overflow-y`)
+  - proper line-height/leading classes
+  - container sizing/layout fixes
+  - shared tokens in `src/index.css` when truly global
+- If a non-obvious numeric value is required, document why it is correct and where it comes from.

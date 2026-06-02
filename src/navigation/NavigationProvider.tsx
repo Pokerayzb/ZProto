@@ -10,7 +10,6 @@ import { pagesById, pagesByPath } from '@pages/index';
 
 import { NavigationContext } from './context';
 import { DEFAULT_PAGE_ID } from './constants';
-import type { NavigateOptions } from './types';
 import type { PageId } from './types';
 
 const appBasePath = normalizeBasePath(import.meta.env.BASE_URL);
@@ -83,14 +82,14 @@ export interface NavigationProviderProps {
 
 export function NavigationProvider({ children }: NavigationProviderProps) {
   const [pageId, setPageId] = useState<PageId>(readInitialPage);
-  const [pageOptions, setPageOptions] = useState<NavigateOptions | null>(null);
+  const [tab, setTab] = useState<string | null>(null);
 
   const page = pagesById[pageId];
 
-  const navigate = useCallback((nextPageId: PageId, options?: NavigateOptions) => {
+  const navigate = useCallback((nextPageId: PageId, nextTab?: string) => {
     const nextPage = pagesById[nextPageId];
     setPageId(nextPageId);
-    setPageOptions(options ?? null);
+    setTab(nextTab ?? null);
     syncBrowserPath(nextPage.path, false);
   }, []);
 
@@ -102,7 +101,7 @@ export function NavigationProvider({ children }: NavigationProviderProps) {
   useEffect(() => {
     const onPopState = () => {
       setPageId(resolvePageIdFromPath(stripBasePath(window.location.pathname)));
-      setPageOptions(null);
+      setTab(null);
     };
 
     window.addEventListener("popstate", onPopState);
@@ -115,11 +114,11 @@ export function NavigationProvider({ children }: NavigationProviderProps) {
     () => ({
       pageId,
       page,
-      pageOptions,
+      tab,
       navigate,
       isActive,
     }),
-    [pageId, page, pageOptions, navigate, isActive],
+    [pageId, page, tab, navigate, isActive],
   );
 
   return (

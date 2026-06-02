@@ -8,10 +8,18 @@ export function definePage({
   title,
   icon,
   background,
+  transparentBackground,
   children,
 }: DefinePageOptions): PageDefinition {
   function Component() {
-    return <Page background={background}>{children}</Page>;
+    return (
+      <Page
+        background={background}
+        {...(transparentBackground !== undefined ? { transparentBackground } : {})}
+      >
+        {children}
+      </Page>
+    );
   }
 
   return {
