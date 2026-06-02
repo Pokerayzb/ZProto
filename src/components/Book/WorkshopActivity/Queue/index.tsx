@@ -28,27 +28,25 @@ export function Queue({ professionId }: QueueProps) {
         </div>
       ) : (
         <ScrollArea className="min-h-0 flex-1">
-          <div className="book-scroll-list">
-            {currentTask !== null ? <CurrentItem professionId={professionId} /> : null}
-            {queuedItems.map((task) => {
-              const skill = gameLibrary.skills[task.skillId];
-              const item = gameLibrary.items[task.skillId];
-              const title = item?.name ?? task.skillId;
+          {currentTask !== null ? <CurrentItem professionId={professionId} /> : null}
+          {queuedItems.map((task) => {
+            const skill = gameLibrary.skills[task.skillId];
+            const item = gameLibrary.items[task.skillId];
+            const title = item?.name ?? task.skillId;
 
-              return (
-                <TaskCard
-                  key={task.id}
-                  className="queue-item"
-                  title={title}
-                  count={task.count}
-                  {...(skill?.icon ? { iconSrc: skill.icon } : {})}
-                  onRemove={() => {
-                    dispatch(new Unplan(task.id));
-                  }}
-                />
-              );
-            })}
-          </div>
+            return (
+              <TaskCard
+                key={task.id}
+                className="queue-item"
+                title={title}
+                count={task.count}
+                {...(skill?.icon ? { iconSrc: skill.icon } : {})}
+                onRemove={() => {
+                  dispatch(new Unplan(task.id));
+                }}
+              />
+            );
+          })}
         </ScrollArea>
       )}
     </div>

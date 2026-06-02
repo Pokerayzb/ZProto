@@ -1,6 +1,5 @@
 import { useMemo, useState } from 'react';
 import { Book } from '@components/Book';
-import { Column } from '@components/Book/Column';
 import { ProfessionSkillList } from '@components/Book/ProfessionSkillList';
 import { WorkshopActivity } from '@components/Book/WorkshopActivity';
 import { WorkshopCreation } from '@components/Book/WorkshopCreation';
@@ -48,22 +47,24 @@ function WorkshopPanel({
   return (
     <div className="flex h-full min-h-0 flex-1 flex-col">
       <ProfessionLevelHeader professionId={professionId} />
-      <div className="grid h-full min-h-0 flex-1 grid-cols-3 divide-x divide-button-text">
-        <Column>
-          <ScrollArea>
+      <div className="flex h-full min-h-0 flex-1">
+        <section className="flex min-h-0 min-w-0 flex-1 flex-col">
+          <ScrollArea className="min-h-0 flex-1">
             <ProfessionSkillList
               professionId={professionId}
               selectedSkillId={selectedSkillId}
               onSelect={onSelectSkill}
             />
           </ScrollArea>
-        </Column>
-        <Column className="h-full">
+        </section>
+        <div className="w-px shrink-0 self-stretch bg-button-text" aria-hidden />
+        <section className="flex min-h-0 min-w-0 flex-1 flex-col mx-3">
           {activeSkill ? <WorkshopCreation skill={activeSkill} /> : null}
-        </Column>
-        <Column>
+        </section>
+        <div className="w-px shrink-0 self-stretch bg-button-text" aria-hidden />
+        <section className="flex min-h-0 min-w-0 flex-1 flex-col ml-3">
           <WorkshopActivity professionId={professionId} />
-        </Column>
+        </section>
       </div>
     </div>
   );

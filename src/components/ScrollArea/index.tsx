@@ -24,7 +24,7 @@ export function ScrollArea({ children, className }: ScrollAreaProps) {
   const [viewportHeight, setViewportHeight] = useState(0);
   const [contentHeight, setContentHeight] = useState(0);
   const [trackHeight, setTrackHeight] = useState(0);
-  const classes = 'scroll-area flex min-h-0 flex-1' + (className ? ' ' + className : '');
+  const classes = 'scroll-area flex min-h-0 flex-1 mr-1' + (className ? ' ' + className : '');
   const maxScrollTop = Math.max(contentHeight - viewportHeight, 0);
   const thumbHeight =
     maxScrollTop > 0 && trackHeight > 0
@@ -95,9 +95,11 @@ export function ScrollArea({ children, className }: ScrollAreaProps) {
 
   return (
     <div className={classes} onWheel={handleWheel}>
-      <div ref={viewportRef} className="min-h-0 flex-1 overflow-hidden">
+      <div ref={viewportRef} className="min-h-0 flex-1 overflow-hidden my-2">
         <div ref={contentRef} style={{ transform: `translateY(-${scrollTop}px)` }}>
-          {children}
+          <div className="flex flex-col mr-1 gap-y-2">
+            {children}
+          </div>
         </div>
       </div>
       <div className="bar flex w-6 flex-none flex-col items-center text-button-text">

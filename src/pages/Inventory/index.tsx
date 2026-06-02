@@ -1,5 +1,4 @@
 import { Book } from '@components/Book';
-import { Column } from '@components/Book/Column';
 import { ScrollArea } from '@components/ScrollArea';
 
 import { gameLibrary } from '@game/library/gameLibrary';
@@ -33,13 +32,7 @@ export function InventoryComponent() {
     }
 
     return (
-      <div
-        className={
-          'grid grid-cols-4 gap-[var(--book-scroll-list-gap)]' +
-          ' pt-[var(--book-scroll-list-py)] pb-[var(--book-scroll-list-py)]' +
-          ' pr-[var(--book-scroll-list-pr)]'
-        }
-      >
+      <div className="grid grid-cols-4 gap-3 py-1 pr-1">
         {owned.map((item) => (
           <InventoryItem
             key={item.id}
@@ -53,16 +46,17 @@ export function InventoryComponent() {
 
   function inventoryPanel(itemsList: typeof items, title: string, blurb: string) {
     return (
-      <div className="grid h-full min-h-0 flex-1 grid-cols-3 divide-x divide-button-text">
-        <Column className="col-span-2 min-h-0">
+      <div className="flex h-full min-h-0 flex-1">
+        <section className="flex min-h-0 min-w-0 flex-[2] flex-col">
           <ScrollArea className="min-h-0 flex-1">{renderItemGrid(itemsList)}</ScrollArea>
-        </Column>
-        <Column className="flex items-center justify-center p-6">
+        </section>
+        <div className="w-px shrink-0 self-stretch bg-button-text" aria-hidden />
+        <section className="flex min-w-0 flex-1 flex-col items-center justify-center p-6">
           <div className="text-center">
             <h3 className="mb-3 font-serif text-2xl font-bold">{title}</h3>
             <p className="text-sm leading-relaxed opacity-75">{blurb}</p>
           </div>
-        </Column>
+        </section>
       </div>
     );
   }

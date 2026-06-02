@@ -15,18 +15,14 @@ export function ProfessionSkillList({
 }: ProfessionSkillListProps) {
   const skillEntries = useProfessionSkillEntries(professionId);
 
-  return (
-    <div className="book-scroll-list">
-      {skillEntries.map(({ skill }) => (
-        <Recipe
-          key={skill.id}
-          skill={skill}
-          selected={skill.id === selectedSkillId}
-          onSelect={() => {
-            onSelect(skill.id);
-          }}
-        />
-      ))}
-    </div>
-  );
+  return skillEntries.map(({ skill }) => (
+    <Recipe
+      key={skill.id}
+      skill={skill}
+      selected={skill.id === selectedSkillId}
+      onSelect={() => {
+        onSelect(skill.id);
+      }}
+    />
+  ));
 }
