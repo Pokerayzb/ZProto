@@ -50,6 +50,8 @@ export function Zeppelin({
 
   const destroySpine = (spine: Spine | null) => {
     if (!spine) return;
+    spine.autoUpdate = false;
+    spine.state.clearTracks();
     spine.parent?.removeChild(spine);
     spine.destroy();
     if (spineRef.current === spine) {
@@ -145,7 +147,12 @@ export function Zeppelin({
           track.listener = {
             complete: () => {
               if (departureToken !== departureTokenRef.current) return;
-              destroySpine(departing);
+              // Defer destruction outside the current ticker cycle to avoid
+              // physicsTranslate crash when destroying mid-internalUpdate.
+              requestAnimationFrame(() => {
+                if (departureToken !== departureTokenRef.current) return;
+                destroySpine(departing);
+              });
             },
           };
         } else {
