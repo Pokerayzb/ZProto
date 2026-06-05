@@ -396,7 +396,11 @@ export function TowerScene() {
         zeppelinId={visitZeppelinId}
         phase={visit.phase}
         zIndex={ZEPPELIN_Z}
-        anchorY={0.3}
+        scale={1.3}
+        anchorX={0.66}
+        anchorY={0.42}
+        offsetX={-50}
+        timeScale={0.5}
       />
       <Flag zIndex={FLAG_Z} anchorY={0.18} offsetX={-75} />
     </>

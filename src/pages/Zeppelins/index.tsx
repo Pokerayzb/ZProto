@@ -27,7 +27,7 @@ function CardAction({ children, disabled }: { children: ReactNode; disabled?: bo
   return (
     <Panel layout="horizontal" className="w-full shrink-0">
       <Button
-        className="w-full min-w-0 font-bold text-l"
+        className="w-full min-w-0 py-1 text-sm font-bold"
         {...(disabled !== undefined ? { disabled } : {})}
       >
         {children}
@@ -52,14 +52,14 @@ function TradeCard({
   return (
     <Frame
       className="h-full min-h-0"
-      contentClassName="page-surface flex h-full min-h-0 flex-col gap-2 p-3 text-center"
+      contentClassName="page-surface flex h-full min-h-0 flex-col gap-1 p-2 text-center"
     >
-      <div className="flex min-h-0 flex-1 flex-col items-center gap-2">
-        <div className="icon-slot size-16">
+      <div className="flex min-h-0 flex-1 flex-col items-center justify-center gap-1">
+        <div className="icon-slot size-11 shrink-0">
           <img src={itemIcon} alt={name} className="size-full object-contain" />
         </div>
-        <h4 className="line-clamp-2 font-serif text-sm font-bold leading-tight">{name}</h4>
-        {sub && <span className="text-xs font-bold opacity-60">{sub}</span>}
+        <h4 className="line-clamp-1 font-serif text-xs font-bold leading-tight">{name}</h4>
+        {sub && <span className="text-[10px] font-bold opacity-60">{sub}</span>}
         <ValueBadge icon={coinIcon} value={price} label="Price" />
       </div>
       <CardAction>{action}</CardAction>
@@ -76,22 +76,22 @@ function QuestCard({ quest }: { quest: FactionQuest }) {
       className="h-full min-h-0"
       contentClassName="page-surface flex h-full min-h-0 flex-col gap-2 p-3 text-center"
     >
-      <div className="flex min-h-0 flex-1 flex-col items-center gap-2">
+      <div className="flex min-h-0 flex-1 flex-col items-center gap-1.5">
         <h4 className="font-serif text-sm font-bold leading-tight">{quest.itemName}</h4>
 
         <NewTag show={!started && !done}>
-          <div className="icon-slot size-24">
+          <div className="icon-slot size-16">
             <img src={quest.icon} alt={quest.itemName} className="size-full object-contain" />
           </div>
         </NewTag>
 
-        <p className="text-sm leading-snug opacity-75">{quest.description}</p>
-        <span className="font-mono text-lg font-bold tabular-nums">
+        <p className="line-clamp-3 text-xs leading-snug opacity-75">{quest.description}</p>
+        <span className="font-mono text-base font-bold tabular-nums">
           {quest.delivered} / {quest.required}
         </span>
 
-        <div className="mt-auto flex w-full flex-col items-center gap-1 border-t border-border-subtle pt-2">
-          <h4 className="text-xs font-bold uppercase tracking-wider text-page-text/60">Reward</h4>
+        <div className="mt-auto flex w-full flex-col items-center gap-0.5 border-t border-border-subtle pt-1.5">
+          <h4 className="text-[10px] font-bold uppercase tracking-wider text-page-text/60">Reward</h4>
           <QuestRewards reward={quest.reward} />
         </div>
       </div>
@@ -159,7 +159,7 @@ function QuestsSection({ faction }: { faction: Faction }) {
   return (
     <div className="flex min-h-0 flex-1 flex-col">
       <SectionHeading>Captain&apos;s errands</SectionHeading>
-      <div className="grid min-h-0 flex-1 grid-cols-2 sm:grid-cols-4 items-stretch gap-3">
+      <div className="grid min-h-0 flex-1 grid-cols-2 items-stretch gap-2">
         {faction.quests.slice(0, 4).map((q) => (
           <QuestCard key={q.id} quest={q} />
         ))}
@@ -262,7 +262,9 @@ function VisitPanel({ faction }: { faction: Faction }) {
       </div>
 
       <div className="hidden sm:flex min-h-0 flex-1 gap-5">
-        <QuestsSection faction={faction} />
+        <div className="flex min-h-0 min-w-0 flex-[1.4] flex-col">
+          <QuestsSection faction={faction} />
+        </div>
         <div className="flex min-h-0 min-w-0 flex-[2] flex-col border-l border-border-subtle pl-5">
           <TradeSection faction={faction} />
         </div>
